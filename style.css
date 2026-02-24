@@ -1,95 +1,113 @@
-body{
-    margin:0;
-    font-family: 'Georgia', serif;
-    background:#f5e6d3;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Center */
-.center{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+body {
+    background: linear-gradient(135deg, #f8e8d8, #f2d6c2);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Wrapper */
+.envelope-wrapper {
+    text-align: center;
+    cursor: pointer;
+    perspective: 1000px;
 }
 
 /* Envelope */
-.envelope{
-    width:220px;
-    height:140px;
-    position:relative;
-    cursor:pointer;
+.envelope {
+    width: 320px;
+    height: 220px;
+    background: #c89f75;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: transform 0.8s ease;
 }
 
-.body{
-    width:100%;
-    height:100%;
-    background:#d8b48a;
-    border-radius:5px;
-}
-
-.flap{
-    position:absolute;
-    top:0;
-    width:0;
-    height:0;
-    border-left:110px solid transparent;
-    border-right:110px solid transparent;
-    border-bottom:70px solid #c89f72;
-    transition:0.6s;
-}
-
-.envelope:hover .flap{
-    transform:rotateX(180deg);
-    transform-origin:top;
-}
-
-.hint{
-    margin-top:20px;
-    opacity:0.7;
+/* Nắp phong bì */
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #b9895f;
+    clip-path: polygon(0 0, 50% 55%, 100% 0);
+    transform-origin: top;
+    transition: transform 0.8s ease;
+    border-radius: 10px 10px 0 0;
 }
 
 /* Letter */
-.paper{
-    background:white;
-    max-width:600px;
-    margin:80px auto;
-    padding:40px;
-    border-radius:8px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    line-height:1.6;
+.letter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 280px;
+    height: 180px;
+    background: #fffdf8;
+    border-radius: 8px;
+    padding: 20px;
+    transform: translateY(40px);
+    transition: transform 0.8s ease;
+    overflow-y: auto;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.signature{
-    margin-top:30px;
+.letter h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
-button{
-    margin-top:30px;
-    padding:12px 25px;
-    background:#c89f72;
-    border:none;
-    color:white;
-    cursor:pointer;
-    border-radius:5px;
+.letter p {
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
-/* Secret Form */
-.box{
-    background:white;
-    padding:30px;
-    border-radius:10px;
-    width:350px;
-    margin:100px auto;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+.letter button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    background: #c89f75;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-input,textarea{
-    width:100%;
-    margin-top:10px;
-    padding:8px;
+.letter button:hover {
+    background: #a87b52;
+    transform: scale(1.05);
 }
 
-.hidden{
-    display:none;
+.sign {
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 12px;
+}
+
+/* Khi mở */
+.envelope.open::before {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+    transform: translateY(-60px);
+}
+
+/* Instruction */
+.instruction {
+    margin-top: 20px;
+    color: #6d4c41;
+    font-size: 14px;
 }

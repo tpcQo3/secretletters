@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>SecretLetters</title>
+    <title>SecretLetter</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div id="letterContainer" class="center">
-    <div class="envelope" onclick="openLetter()">
-        <div class="flap"></div>
-        <div class="body"></div>
+<div class="container">
+
+    <div class="envelope-wrapper" onclick="openLetter()">
+        <div class="envelope">
+            <div class="letter">
+                <h1>Lá thư đầu tiên</h1>
+                <p>
+                    Xin chào, mình là <b>Bznh (hay gọi là Bình)</b>, đây là dự án đầu tiên của mình.
+                </p>
+                <p>
+                    Đây là một chương trình cho phép bạn viết thư (Email) nhưng nhiều tuỳ chọn,
+                    trang trí và phong cách hơn.
+                </p>
+                <p>
+                    Nếu có góp ý, feedback hãy liên hệ đến:
+                    <br>
+                    📧 lunarclientqt3333@gmail.com
+                </p>
+                <p>
+                    Cảm ơn vì đã đọc lá thư đầu tiên này ❤️
+                </p>
+                <button onclick="goNext(event)">Viết thư ngay</button>
+                <p class="sign">Thân gửi,<br>Bznh</p>
+            </div>
+        </div>
+        <div class="instruction">Bấm vào phong bì để mở thư</div>
     </div>
-    <p class="hint">Bấm vào phong bì để mở thư</p>
-</div>
 
-<div id="letterContent" class="hidden">
-    <div class="paper">
-        <h2>Lá thư đầu tiên</h2>
-
-        <p>
-        Xin chào, mình là <b>Bznh</b> (hay gọi là Bình), đây là dự án đầu tiên của mình.
-        Đây là một chương trình cho phép bạn viết thư (Email) nhưng nhiều tuỳ chọn,
-        trang trí và phong cách hơn.
-        </p>
-
-        <p>
-        Nếu có góp ý, feedback hãy liên hệ đến 
-        <b>lunarclientqt3333@gmail.com</b> 
-        hoặc Facebook của mình.
-        </p>
-
-        <p>
-        Cảm ơn vì đã đọc lá thư đầu tiên này &lt;3,
-        hãy bấm nút phía dưới để có thể viết thư.
-        </p>
-
-        <p class="signature">
-        Thân gửi,<br>
-        <b>Bznh</b>
-        </p>
-
-        <button onclick="showForm()">Viết thư</button>
-    </div>
-</div>
-
-<div id="mainBox" class="hidden">
-    <div class="box">
-        <h2>Secret Letter</h2>
-        <input id="name" placeholder="Your name">
-        <textarea id="msg" placeholder="Your secret message"></textarea>
-        <button onclick="createLink()">Create Secret Link</button>
-        <div id="result"></div>
-    </div>
 </div>
 
 <script src="script.js"></script>
