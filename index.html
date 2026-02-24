@@ -7,22 +7,52 @@
 </head>
 <body>
 
-<div class="box" id="mainBox">
-    <h2>Secret Letter</h2>
-
-    <div id="firstLetter">
-        <p><b>Lá thư đầu tiên</b></p>
-        <p>
-            Đây là lá thư đầu tiên của tôi.  
-            Cảm ơn bạn đã ghé thăm SecretLetters ❤️
-        </p>
-        <hr>
+<div id="letterContainer" class="center">
+    <div class="envelope" onclick="openLetter()">
+        <div class="flap"></div>
+        <div class="body"></div>
     </div>
+    <p class="hint">Bấm vào phong bì để mở thư</p>
+</div>
 
-    <input id="name" placeholder="Your name">
-    <textarea id="msg" placeholder="Your secret message"></textarea>
-    <button onclick="createLink()">Create Secret Link</button>
-    <div id="result"></div>
+<div id="letterContent" class="hidden">
+    <div class="paper">
+        <h2>Lá thư đầu tiên</h2>
+
+        <p>
+        Xin chào, mình là <b>Bznh</b> (hay gọi là Bình), đây là dự án đầu tiên của mình.
+        Đây là một chương trình cho phép bạn viết thư (Email) nhưng nhiều tuỳ chọn,
+        trang trí và phong cách hơn.
+        </p>
+
+        <p>
+        Nếu có góp ý, feedback hãy liên hệ đến 
+        <b>lunarclientqt3333@gmail.com</b> 
+        hoặc Facebook của mình.
+        </p>
+
+        <p>
+        Cảm ơn vì đã đọc lá thư đầu tiên này &lt;3,
+        hãy bấm nút phía dưới để có thể viết thư.
+        </p>
+
+        <p class="signature">
+        Thân gửi,<br>
+        <b>Bznh</b>
+        </p>
+
+        <button onclick="showForm()">Viết thư</button>
+    </div>
+</div>
+
+<div id="mainBox" class="hidden">
+    <div class="box">
+        <h2>Secret Letter</h2>
+        <input id="name" placeholder="Your name">
+        <textarea id="msg" placeholder="Your secret message"></textarea>
+        <button onclick="createLink()">Create Secret Link</button>
+        <div id="result"></div>
+    </div>
 </div>
 
 <script src="script.js"></script>

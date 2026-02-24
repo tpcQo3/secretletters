@@ -1,3 +1,13 @@
+function openLetter(){
+    document.getElementById("letterContainer").classList.add("hidden");
+    document.getElementById("letterContent").classList.remove("hidden");
+}
+
+function showForm(){
+    document.getElementById("letterContent").classList.add("hidden");
+    document.getElementById("mainBox").classList.remove("hidden");
+}
+
 function createLink(){
     let name = document.getElementById("name").value;
     let msg = document.getElementById("msg").value;
@@ -13,21 +23,3 @@ function createLink(){
     document.getElementById("result").innerHTML =
         "Share this link:<br><a href='"+link+"'>"+link+"</a>";
 }
-
-function readSecret(){
-    let params = new URLSearchParams(window.location.search);
-    let data = params.get("data");
-
-    if(data){
-        let decoded = atob(data);
-        let parts = decoded.split("||");
-
-        document.getElementById("mainBox").innerHTML = `
-            <h2>Secret Letter</h2>
-            <p><b>From:</b> ${parts[0]}</p>
-            <p>${parts[1]}</p>
-        `;
-    }
-}
-
-readSecret();

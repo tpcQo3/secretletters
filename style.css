@@ -1,0 +1,95 @@
+body{
+    margin:0;
+    font-family: 'Georgia', serif;
+    background:#f5e6d3;
+}
+
+/* Center */
+.center{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Envelope */
+.envelope{
+    width:220px;
+    height:140px;
+    position:relative;
+    cursor:pointer;
+}
+
+.body{
+    width:100%;
+    height:100%;
+    background:#d8b48a;
+    border-radius:5px;
+}
+
+.flap{
+    position:absolute;
+    top:0;
+    width:0;
+    height:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-bottom:70px solid #c89f72;
+    transition:0.6s;
+}
+
+.envelope:hover .flap{
+    transform:rotateX(180deg);
+    transform-origin:top;
+}
+
+.hint{
+    margin-top:20px;
+    opacity:0.7;
+}
+
+/* Letter */
+.paper{
+    background:white;
+    max-width:600px;
+    margin:80px auto;
+    padding:40px;
+    border-radius:8px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    line-height:1.6;
+}
+
+.signature{
+    margin-top:30px;
+}
+
+button{
+    margin-top:30px;
+    padding:12px 25px;
+    background:#c89f72;
+    border:none;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* Secret Form */
+.box{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    width:350px;
+    margin:100px auto;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+input,textarea{
+    width:100%;
+    margin-top:10px;
+    padding:8px;
+}
+
+.hidden{
+    display:none;
+}
