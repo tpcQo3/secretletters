@@ -1,10 +1,10 @@
-const envelope = document.getElementById("envelope");
+const envelope = document.querySelector(".envelope");
 
 envelope.addEventListener("click", () => {
-    envelope.classList.toggle("open");
+  envelope.classList.toggle("open");
 });
 
-function goNext(event) {
-    event.stopPropagation();
-    window.location.href = "write.html";
+function goNext(e){
+  e.stopPropagation();
+  window.location.href = "write.html";
 }
