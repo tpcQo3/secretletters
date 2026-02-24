@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>SecretLetter</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecretLetter</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="scene">
 
-    <div class="envelope-wrapper" onclick="openLetter()">
-        <div class="envelope">
-            <div class="letter">
-                <h1>Lá thư đầu tiên</h1>
-                <p>
-                    Xin chào, mình là <b>Bznh (hay gọi là Bình)</b>, đây là dự án đầu tiên của mình.
-                </p>
-                <p>
-                    Đây là một chương trình cho phép bạn viết thư (Email) nhưng nhiều tuỳ chọn,
-                    trang trí và phong cách hơn.
-                </p>
-                <p>
-                    Nếu có góp ý, feedback hãy liên hệ đến:
-                    <br>
-                    📧 lunarclientqt3333@gmail.com
-                </p>
-                <p>
-                    Cảm ơn vì đã đọc lá thư đầu tiên này ❤️
-                </p>
-                <button onclick="goNext(event)">Viết thư ngay</button>
-                <p class="sign">Thân gửi,<br>Bznh</p>
+    <div class="envelope" id="envelope">
+        <div class="flap"></div>
+
+        <div class="letter">
+            <h1>Lá thư đầu tiên</h1>
+
+            <p>
+                Xin chào, mình là <b>Bznh (hay gọi là Bình)</b>,
+                đây là dự án đầu tiên của mình.
+            </p>
+
+            <p>
+                Đây là một chương trình cho phép bạn viết thư (Email)
+                nhưng nhiều tuỳ chọn, trang trí và phong cách hơn.
+            </p>
+
+            <p>
+                Nếu có góp ý, feedback hãy liên hệ:
+                <br>
+                lunarclientqt3333@gmail.com
+            </p>
+
+            <p>
+                Cảm ơn vì đã đọc lá thư đầu tiên này ❤️
+            </p>
+
+            <button onclick="goNext(event)">Viết thư ngay</button>
+
+            <div class="sign">
+                Thân gửi,<br>
+                Bznh
             </div>
         </div>
-        <div class="instruction">Bấm vào phong bì để mở thư</div>
     </div>
+
+    <p class="hint">Chạm vào phong bì để mở thư</p>
 
 </div>
 
