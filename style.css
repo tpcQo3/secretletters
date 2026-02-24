@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -13,44 +14,66 @@ body {
   align-items: center;
 }
 
+/* SCENE */
 .scene {
   text-align: center;
   width: 100%;
   padding: 20px;
 }
 
-/* Envelope */
+/* =========================
+   ENVELOPE
+========================= */
+
 .envelope {
   position: relative;
   width: min(92vw, 380px);
   height: 230px;
+  margin: auto;
   background: #c89f75;
   border-radius: 14px;
-  margin: auto;
-  cursor: pointer;
-  transition: 0.6s;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  overflow: hidden;
+  cursor: pointer;
+  transition: 0.6s ease;
+  overflow: hidden; /* che thư khi đóng */
 }
 
-/* Nắp */
+/* Flap (tam giác chuẩn CSS) */
 .flap {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #b9895f;
-  clip-path: polygon(0 0, 50% 55%, 100% 0);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+
+  border-left: 190px solid transparent;
+  border-right: 190px solid transparent;
+  border-top: 120px solid #b9895f;
+
   transform-origin: top;
   transition: 0.8s ease;
   z-index: 3;
 }
 
-/* Letter */
+/* Responsive flap */
+@media (max-width: 420px) {
+  .flap {
+    border-left: 46vw solid transparent;
+    border-right: 46vw solid transparent;
+    border-top: 120px solid #b9895f;
+  }
+}
+
+/* =========================
+   LETTER
+========================= */
+
 .letter {
   position: absolute;
   left: 50%;
-  top: 100%;
-  transform: translate(-50%, 0);
+  top: 100%; /* nằm hoàn toàn dưới phong bì */
+  transform: translateX(-50%);
   width: 92%;
   background: #fffdf8;
   border-radius: 12px;
@@ -72,8 +95,14 @@ body {
   line-height: 1.6;
 }
 
+.sign {
+  margin-top: 15px;
+  font-style: italic;
+}
+
+/* Button */
 button {
-  margin-top: 12px;
+  margin-top: 14px;
   padding: 10px 20px;
   border: none;
   background: #c89f75;
@@ -81,6 +110,7 @@ button {
   border-radius: 30px;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: 500;
 }
 
 button:hover {
@@ -88,33 +118,36 @@ button:hover {
   transform: scale(1.05);
 }
 
-.sign {
-  margin-top: 15px;
-  font-style: italic;
-}
-
-/* ===== OPEN STATE ===== */
+/* =========================
+   OPEN STATE
+========================= */
 
 .envelope.open {
-  overflow: visible;
+  overflow: visible; /* cho thư trồi ra */
 }
 
 .envelope.open .flap {
-  transform: rotateX(180deg);
+  transform: translateX(-50%) rotateX(180deg);
 }
 
 .envelope.open .letter {
-  top: -160px;
+  top: -160px; /* trượt lên */
 }
 
-/* Hint */
+/* =========================
+   HINT
+========================= */
+
 .hint {
   margin-top: 25px;
   color: #6d4c41;
   font-size: 14px;
 }
 
-/* Mobile */
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 480px) {
   .letter {
     padding: 20px 16px;
