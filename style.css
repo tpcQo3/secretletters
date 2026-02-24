@@ -33,17 +33,24 @@ body {
   overflow: hidden;
 }
 
-/* flap chuẩn */
+
 .flap {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: #b9895f;
-  clip-path: polygon(0 0, 50% 60%, 100% 0);
-  transform-origin: top;
+
+  clip-path: polygon(0 0, 50% 65%, 100% 0);
+
+  transform-origin: top center;   /* QUAN TRỌNG */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
   transition: transform 0.8s ease;
   z-index: 3;
 }
-
 /* ================= LETTER ================= */
 
 .letter {
@@ -102,6 +109,7 @@ button:hover {
 
 .envelope.open .flap {
   transform: rotateX(180deg);
+  z-index: 0;   /* Đẩy nó xuống dưới sau khi mở */
 }
 
 .envelope.open .letter {
