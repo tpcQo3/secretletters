@@ -57,14 +57,16 @@ body {
 .letter {
   position: absolute;
   left: 50%;
-  bottom: -100%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, 120%);   /* Ẩn xuống dưới */
+
   width: 92%;
   background: #fffdf8;
   border-radius: 12px;
   padding: 25px 20px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.18);
-  transition: bottom 0.8s ease;
+
+  transition: transform 0.8s ease;
   z-index: 1;
 }
 
@@ -114,7 +116,7 @@ button:hover {
 }
 
 .envelope.open .letter {
-  bottom: 110px;
+  transform: translate(-50%, -30%);  /* Trượt lên */
 }
 
 /* ================= MOBILE ================= */
