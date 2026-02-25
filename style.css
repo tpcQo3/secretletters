@@ -125,3 +125,15 @@ button:hover {
   color: #9f7aea;
   font-size: 14px;
 }
+
+.inline-link {
+  color: #a78bfa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.inline-link:hover {
+  text-decoration: underline;
+  color: #7c3aed;
+}
