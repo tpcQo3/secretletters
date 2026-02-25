@@ -5,6 +5,9 @@
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   margin: 0;
   background: linear-gradient(135deg, #1e1b2e, #2b1e3f, #3b1f4d);
   font-family: 'Outfit', sans-serif;
