@@ -6,8 +6,8 @@
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
-  font-family: 'Cormorant Garamond', serif;
+  background: linear-gradient(135deg, #1e1b2e, #2b1e3f, #3b1f4d);
+  font-family: 'Outfit', sans-serif;
   color: white;
 }
 
@@ -28,7 +28,7 @@ body {
 .envelope {
   width: min(92vw, 380px);
   height: 200px;
-  background: linear-gradient(145deg, #6d28d9, #4c1d95);
+  background: linear-gradient(145deg, #a855f7, #7e22ce);
   border-radius: 20px;
   position: relative;
   cursor: pointer;
@@ -63,11 +63,10 @@ body {
   pointer-events: none;
 
   width: min(92vw, 420px);
-  background: white;
-  border-radius: 22px;
-  padding: 40px 30px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-  z-index: 3;
+  background: #fff8f3;   /* kem nhẹ thay vì trắng */
+  border-radius: 26px;
+  padding: 45px 35px;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.6);
 }
 
 .scene.open .letter {
@@ -79,17 +78,18 @@ body {
 /* ===== TEXT ===== */
 
 .letter h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 42px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px;
   margin-bottom: 22px;
-  color: #6d28d9;
+  color: #b14aed;
+  text-align: center;
 }
 
 .letter p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.9;
   margin-bottom: 16px;
-  color: #333;
+  color: #3b2e4a;
 }
 
 .sign {
