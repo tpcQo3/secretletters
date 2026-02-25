@@ -7,7 +7,7 @@
 body {
   margin: 0;
   background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
-  font-family: 'Lora', serif;
+  font-family: 'Cormorant Garamond', serif;
   color: white;
 }
 
@@ -79,16 +79,16 @@ body {
 /* ===== TEXT ===== */
 
 .letter h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px;
-  margin-bottom: 18px;
-  color: #4c1d95;
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  margin-bottom: 22px;
+  color: #6d28d9;
 }
 
 .letter p {
-  font-size: 15px;
-  line-height: 1.8;
-  margin-bottom: 14px;
+  font-size: 18px;
+  line-height: 1.9;
+  margin-bottom: 16px;
   color: #333;
 }
 
