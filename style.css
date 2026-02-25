@@ -16,10 +16,11 @@ body {
 }
 
 .scene {
-  min-height: 100vh;
+  width: 100%;
   display: flex;
-  align-items: center;      /* căn giữa theo chiều dọc */
-  justify-content: center;  /* căn giữa theo chiều ngang */
+  flex-direction: column;   /* QUAN TRỌNG */
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
@@ -30,7 +31,6 @@ body {
   height: 200px;
   background: linear-gradient(145deg, #6d28d9, #4c1d95);
   border-radius: 20px;
-  margin: auto;
   position: relative;
   cursor: pointer;
   transition: 0.6s ease;
