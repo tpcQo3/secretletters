@@ -110,3 +110,22 @@ textarea {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(168,85,247,0.4);
 }
+
+.style-panel {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+}
+
+.preview {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+}
+
+.preview p {
+  min-height: 80px;
+  transition: all 0.3s ease;
+}
