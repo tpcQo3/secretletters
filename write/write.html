@@ -1,104 +1,62 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Viết thư - SecretLetter</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viết Thư | SecretLetter</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #1e1b2e, #2b1e3f, #3b1f4d);
-  font-family: 'Outfit', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.paper {
-  width: 100%;
-  max-width: 480px;
-  background: #fff8f3;
-  border-radius: 28px;
-  padding: 35px 28px;
-  box-shadow: 0 40px 90px rgba(0,0,0,0.6);
-}
-
-.paper h1 {
-  font-family: 'Marcellus', serif;
-  font-size: 28px;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #a78bfa;
-}
-
-.input-group {
-  margin-bottom: 18px;
-}
-
-input, textarea {
-  width: 100%;
-  border: none;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: #f3e8ff;
-  font-size: 14px;
-  outline: none;
-}
-
-textarea {
-  min-height: 150px;
-  resize: none;
-}
-
-.send-btn {
-  width: 100%;
-  margin-top: 15px;
-  padding: 14px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(135deg, #a855f7, #7e22ce);
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.send-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(168,85,247,0.4);
-}
-</style>
+  <link rel="stylesheet" href="write.css">
 </head>
 <body>
 
-<div class="paper">
-  <h1>Viết một lá thư 💌</h1>
+  <div class="background-blur"></div>
 
-  <div class="input-group">
-    <input type="text" placeholder="Người nhận">
+  <div class="card">
+    <h1>Viết một lá thư 💌</h1>
+
+    <form id="letterForm">
+
+      <div class="input-group">
+        <label>Người nhận</label>
+        <input type="text" id="to" placeholder="Ví dụ: Một người đặc biệt...">
+      </div>
+
+      <div class="input-group">
+        <label>Chủ đề</label>
+        <input type="text" id="subject" placeholder="Một điều mình muốn nói...">
+      </div>
+
+      <div class="input-group">
+        <label>Nội dung</label>
+        <textarea id="message" placeholder="Viết điều bạn chưa từng nói..."></textarea>
+        <span id="charCount">0 / 2000</span>
+      </div>
+
+      <div class="row">
+        <div class="input-group half">
+          <label>Mật khẩu (tuỳ chọn)</label>
+          <input type="password" id="password" placeholder="Đặt mật khẩu">
+        </div>
+
+        <div class="input-group half">
+          <label>Thời hạn</label>
+          <select id="expiry">
+            <option value="1">1 ngày</option>
+            <option value="7" selected>7 ngày</option>
+            <option value="30">30 ngày</option>
+            <option value="0">Vĩnh viễn</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="send-btn">Tạo liên kết bí mật ✨</button>
+
+    </form>
   </div>
 
-  <div class="input-group">
-    <input type="text" placeholder="Chủ đề">
-  </div>
-
-  <div class="input-group">
-    <textarea placeholder="Viết điều bạn muốn gửi ở đây..."></textarea>
-  </div>
-
-  <button class="send-btn">Gửi thư</button>
-</div>
-
+  <script src="write.js"></script>
 </body>
 </html>
