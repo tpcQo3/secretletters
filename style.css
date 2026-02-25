@@ -15,9 +15,9 @@ body {
   min-height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative; /* THÊM */
 }
 
 /* ===== ENVELOPE ===== */
@@ -51,6 +51,7 @@ body {
 /* ===== LETTER ===== */
 
 .letter {
+  position: absolute;   /* THÊM */
   opacity: 0;
   transform: translateY(40px);
   transition: 0.6s ease;
@@ -60,8 +61,6 @@ body {
   border-radius: 22px;
   padding: 40px 30px;
   box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-
-  margin-top: 20px;
 }
 
 .scene.open .envelope {
