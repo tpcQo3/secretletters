@@ -1,4 +1,4 @@
-const messageInput = document.getElementById("message");
+const message = document.getElementById("editor").innerHTML;
 const charCount = document.getElementById("charCount");
 const form = document.getElementById("letterForm");
 
@@ -66,3 +66,15 @@ colorPicker.addEventListener("input", () => {
 colorText.addEventListener("input", () => {
   previewText.style.color = colorText.value;
 });
+
+function format(command) {
+  document.execCommand(command, false, null);
+}
+
+function setFont(font) {
+  document.execCommand("fontName", false, font);
+}
+
+function setColor(color) {
+  document.execCommand("foreColor", false, color);
+}
