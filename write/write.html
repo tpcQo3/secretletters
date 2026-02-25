@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viết thư - SecretLetter</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b2e, #2b1e3f, #3b1f4d);
+  font-family: 'Outfit', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.paper {
+  width: 100%;
+  max-width: 480px;
+  background: #fff8f3;
+  border-radius: 28px;
+  padding: 35px 28px;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.6);
+}
+
+.paper h1 {
+  font-family: 'Marcellus', serif;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #a78bfa;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+input, textarea {
+  width: 100%;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f3e8ff;
+  font-size: 14px;
+  outline: none;
+}
+
+textarea {
+  min-height: 150px;
+  resize: none;
+}
+
+.send-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(168,85,247,0.4);
+}
+</style>
+</head>
+<body>
+
+<div class="paper">
+  <h1>Viết một lá thư 💌</h1>
+
+  <div class="input-group">
+    <input type="text" placeholder="Người nhận">
+  </div>
+
+  <div class="input-group">
+    <input type="text" placeholder="Chủ đề">
+  </div>
+
+  <div class="input-group">
+    <textarea placeholder="Viết điều bạn muốn gửi ở đây..."></textarea>
+  </div>
+
+  <button class="send-btn">Gửi thư</button>
+</div>
+
+</body>
+</html>

@@ -137,3 +137,20 @@ button:hover {
   text-decoration: underline;
   color: #7c3aed;
 }
+
+.start-btn {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(168,85,247,0.4);
+}
+
+.start-btn:hover {
+  transform: scale(1.07);
+}
