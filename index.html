@@ -8,6 +8,32 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, setDoc } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBznlEjaRHE7my7mFZTKgldokLGmkL609A",
+  authDomain: "screctletters.firebaseapp.com",
+  projectId: "screctletters",
+  storageBucket: "screctletters.firebasestorage.app",
+  messagingSenderId: "916940604225",
+  appId: "1:916940604225:web:faf88856504271362ed7c0",
+  measurementId: "G-KJFKX7M26P"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Cho write.js dùng
+window.db = db;
+window.firebaseSetDoc = async (id, data) => {
+  await setDoc(doc(db, "letters", id), data);
+};
+
+</script>
 <body>
 <div class="scene">
 

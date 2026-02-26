@@ -11,13 +11,15 @@ const colorPicker = document.getElementById("colorPicker");
 const colorText = document.getElementById("colorText");
 
 
-// ===== UPDATE PREVIEW + CHAR COUNT =====
+// =========================
+// PREVIEW + CHARACTER COUNT
+// =========================
 editor.addEventListener("input", () => {
 
   const htmlContent = editor.innerHTML;
   const textLength = editor.innerText.length;
 
-  // Update preview (giữ format HTML)
+  // Giữ format HTML
   previewText.innerHTML = htmlContent || 
     "Nội dung thư của bạn sẽ hiển thị ở đây...";
 
@@ -32,28 +34,68 @@ editor.addEventListener("input", () => {
 });
 
 
-// ===== SUBMIT =====
-form.addEventListener("submit", (e) => {
+// =========================
+// SUBMIT + FIREBASE SAVE
+// =========================
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const to = document.getElementById("to").value.trim();
   const subject = document.getElementById("subject").value.trim();
   const message = editor.innerHTML.trim();
   const password = document.getElementById("password").value;
-  const expiry = document.getElementById("expiry").value;
+  const expiryDays = document.getElementById("expiry").value;
 
   if (!editor.innerText.trim()) {
     alert("Bạn chưa viết nội dung 💌");
     return;
   }
 
-  console.log({ to, subject, message, password, expiry });
+  // Random ID
+  const id = Math.random().toString(36).substring(2, 10);
 
-  alert("Tạo thư thành công (demo)");
+  // Expiry timestamp
+  let expiry = null;
+  if (expiryDays !== "0") {
+    expiry = Date.now() + (expiryDays * 24 * 60 * 60 * 1000);
+  }
+
+  // Hash password basic (base64)
+  let hashedPassword = null;
+  if (password) {
+    hashedPassword = btoa(password);
+  }
+
+  try {
+
+    await window.firebaseSetDoc(id, {
+      to,
+      subject,
+      message,
+      password: hashedPassword,
+      expiry,
+      createdAt: Date.now()
+    });
+
+    const link = `${window.location.origin}/l/${id}`;
+
+    alert("Tạo thư thành công 💌\n\nLink của bạn:\n" + link);
+
+    form.reset();
+    editor.innerHTML = "";
+    previewText.innerHTML = "Nội dung thư của bạn sẽ hiển thị ở đây...";
+    charCount.textContent = "0 / 2000";
+
+  } catch (err) {
+    console.error(err);
+    alert("Lỗi khi lưu thư 😢");
+  }
 });
 
 
-// ===== STYLE CONTROLS (toàn thư) =====
+// =========================
+// STYLE CONTROLS (TOÀN THƯ)
+// =========================
 fontSelect.addEventListener("change", () => {
   editor.style.fontFamily = fontSelect.value;
   previewText.style.fontFamily = fontSelect.value;
@@ -77,7 +119,9 @@ colorText.addEventListener("input", () => {
 });
 
 
-// ===== TOOLBAR FORMAT =====
+// =========================
+// TOOLBAR FORMAT
+// =========================
 function format(command) {
   editor.focus();
   document.execCommand(command, false, null);
