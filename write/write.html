@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viết Thư | SecretLetter</title>
 
-  <!-- Google Fonts (fix lại 1 dòng gọn gàng) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&family=Dancing+Script:wght@500&family=Great+Vibes&family=Pacifico&family=Lora&family=Merriweather&family=Montserrat&family=Raleway&family=Quicksand&family=Caveat&family=Indie+Flower&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="write.css">
 </head>
-<script type="module">
 
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, doc, setDoc } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -31,13 +31,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Cho write.js dùng
 window.db = db;
 window.firebaseSetDoc = async (id, data) => {
   await setDoc(doc(db, "letters", id), data);
 };
-
 </script>
+
 <body>
 
   <div class="background-blur"></div>
@@ -47,23 +46,19 @@ window.firebaseSetDoc = async (id, data) => {
 
     <form id="letterForm">
 
-      <!-- Người nhận -->
       <div class="input-group">
         <label>Người nhận</label>
         <input type="text" id="to" placeholder="Ví dụ: Một người đặc biệt..." required maxlength="100">
       </div>
 
-      <!-- Chủ đề -->
       <div class="input-group">
         <label>Chủ đề</label>
         <input type="text" id="subject" placeholder="Một điều mình muốn nói..." maxlength="150">
       </div>
 
-      <!-- Nội dung -->
       <div class="input-group">
         <label>Nội dung</label>
 
-        <!-- Toolbar -->
         <div class="toolbar">
           <button type="button" onclick="format('bold')"><b>B</b></button>
           <button type="button" onclick="format('italic')"><i>I</i></button>
@@ -80,12 +75,10 @@ window.firebaseSetDoc = async (id, data) => {
           <input type="color" onchange="setColor(this.value)">
         </div>
 
-        <!-- Editor -->
         <div id="editor" contenteditable="true" class="editor"></div>
         <span id="charCount">0 / 2000</span>
       </div>
 
-      <!-- Password + Expiry -->
       <div class="row">
         <div class="input-group half">
           <label>Mật khẩu (tuỳ chọn)</label>
@@ -137,7 +130,24 @@ window.firebaseSetDoc = async (id, data) => {
         </div>
       </div>
 
-      <!-- PREVIEW -->
+      <!-- Custom ID -->
+      <div class="input-group">
+        <label>Custom ID (tuỳ chọn)</label>
+        <input type="text" id="customId" placeholder="vd: binhyeuem">
+      </div>
+
+      <!-- Theme -->
+      <div class="input-group">
+        <label>Theme thư</label>
+        <select id="theme">
+          <option value="dark">Dark</option>
+          <option value="romantic">Romantic</option>
+          <option value="sky">Sky</option>
+          <option value="sunset">Sunset</option>
+          <option value="cream">Cream</option>
+        </select>
+      </div>
+
       <div class="preview">
         <h3>Xem trước 👀</h3>
         <div id="previewText">
@@ -145,7 +155,6 @@ window.firebaseSetDoc = async (id, data) => {
         </div>
       </div>
 
-      <!-- Submit -->
       <button type="submit" class="send-btn">
         Tạo liên kết bí mật ✨
       </button>
@@ -153,6 +162,20 @@ window.firebaseSetDoc = async (id, data) => {
     </form>
   </div>
 
+  <!-- POPUP -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-box">
+      <h3>🎉 Thành công!</h3>
+      <p id="popupMessage"></p>
+      <input type="text" id="popupLink" readonly>
+      <div class="popup-actions">
+        <button type="button" onclick="copyLink()">Copy</button>
+        <button type="button" onclick="closePopup()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
   <script src="write.js"></script>
+
 </body>
 </html>

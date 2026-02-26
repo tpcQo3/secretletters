@@ -45,22 +45,24 @@ form.addEventListener("submit", async (e) => {
   const message = editor.innerHTML.trim();
   const password = document.getElementById("password").value;
   const expiryDays = document.getElementById("expiry").value;
+  const customIdInput = document.getElementById("customId").value.trim();
+  const theme = document.getElementById("theme").value;
 
   if (!editor.innerText.trim()) {
-    alert("Bạn chưa viết nội dung 💌");
+    showPopup("Bạn chưa viết nội dung 💌");
     return;
   }
 
-  // Random ID
-  const id = Math.random().toString(36).substring(2, 10);
+  // ===== ID =====
+  let id = customIdInput || Math.random().toString(36).substring(2, 10);
 
-  // Expiry timestamp
+  // ===== EXPIRY =====
   let expiry = null;
   if (expiryDays !== "0") {
     expiry = Date.now() + (expiryDays * 24 * 60 * 60 * 1000);
   }
 
-  // Hash password basic (base64)
+  // ===== HASH PASSWORD =====
   let hashedPassword = null;
   if (password) {
     hashedPassword = btoa(password);
@@ -74,12 +76,16 @@ form.addEventListener("submit", async (e) => {
       message,
       password: hashedPassword,
       expiry,
+      theme,
+      font: fontSelect.value,
+      fontSize: fontSizeInput.value,
+      color: colorPicker.value,
       createdAt: Date.now()
     });
 
     const link = `${window.location.origin}/l/${id}`;
 
-    alert("Tạo thư thành công 💌\n\nLink của bạn:\n" + link);
+    showPopup("Tạo thư thành công 💌", link);
 
     form.reset();
     editor.innerHTML = "";
@@ -88,7 +94,7 @@ form.addEventListener("submit", async (e) => {
 
   } catch (err) {
     console.error(err);
-    alert("Lỗi khi lưu thư 😢");
+    showPopup("Lỗi khi lưu thư 😢");
   }
 });
 
@@ -135,4 +141,19 @@ function setFont(font) {
 function setColor(color) {
   editor.focus();
   document.execCommand("foreColor", false, color);
+}
+
+function showPopup(message, link = "") {
+  document.getElementById("popupMessage").innerText = message;
+  document.getElementById("popupLink").value = link;
+  document.getElementById("popup").classList.remove("hidden");
+}
+
+function closePopup() {
+  document.getElementById("popup").classList.add("hidden");
+}
+
+function copyLink() {
+  const input = document.getElementById("popupLink");
+  navigator.clipboard.writeText(input.value);
 }
