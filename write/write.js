@@ -155,5 +155,13 @@ function closePopup() {
 
 function copyLink() {
   const input = document.getElementById("popupLink");
-  navigator.clipboard.writeText(input.value);
+  const successText = document.getElementById("copySuccess");
+
+  navigator.clipboard.writeText(input.value).then(() => {
+    successText.classList.remove("hidden");
+
+    setTimeout(() => {
+      successText.classList.add("hidden");
+    }, 2000);
+  });
 }
