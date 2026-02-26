@@ -165,3 +165,19 @@ function copyLink() {
     }, 2000);
   });
 }
+
+const themeSelect = document.getElementById("theme");
+
+themeSelect.addEventListener("change", () => {
+  applyTheme(themeSelect.value);
+});
+
+function applyTheme(theme) {
+  const previewContainer = document.getElementById("previewContainer");
+
+  // reset class cũ
+  previewContainer.className = "theme-preview";
+
+  // add theme mới
+  previewContainer.classList.add("theme-" + theme);
+}
