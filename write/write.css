@@ -33,54 +33,16 @@ body {
 
 /* ===== THEMES ===== */
 
-body.default {
-  --bg: #f4f4f4;
-  --card: #ffffff;
-  --text: #222;
-  --accent: #ff4d6d;
-}
+body { background: var(--bg); color: var(--text); }
+.card { background: var(--card); }
 
-body.romantic {
-  --bg: #ffe6eb;
-  --card: #fff0f3;
-  --text: #7a2c3a;
-  --accent: #ff4d6d;
-}
-
-body.loving {
-  --bg: #3b0a0a;
-  --card: #5c1111;
-  --text: #ffe6e6;
-  --accent: #ff2e63;
-}
-
-body.cute {
-  --bg: #e0f7fa;
-  --card: #ffffff;
-  --text: #ff6f91;
-  --accent: #ffb6c1;
-}
-
-body.dracula {
-  --bg: #1a1a2e;
-  --card: #16213e;
-  --text: #e94560;
-  --accent: #9d4edd;
-}
-
-body.sunset {
-  --bg: linear-gradient(135deg, #ff7e5f, #feb47b);
-  --card: #ffffffdd;
-  --text: #3b1f1f;
-  --accent: #ff512f;
-}
-
-body.ocean {
-  --bg: #001f3f;
-  --card: #003566;
-  --text: #caf0f8;
-  --accent: #00b4d8;
-}
+body.default { --bg:#f4f4f4; --card:#fff; --text:#222; }
+body.romantic { --bg:#ffe6eb; --card:#fff0f3; --text:#7a2c3a; }
+body.loving { --bg:#3b0a0a; --card:#5c1111; --text:#ffe6e6; }
+body.cute { --bg:#e0f7fa; --card:#fff; --text:#ff6f91; }
+body.dracula { --bg:#1a1a2e; --card:#16213e; --text:#e94560; }
+body.sunset { --bg:#ff7e5f; --card:#fff; --text:#3b1f1f; }
+body.ocean { --bg:#001f3f; --card:#003566; --text:#caf0f8; }
 
 body {
   font-family: 'Inter', sans-serif;

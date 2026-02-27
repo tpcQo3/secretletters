@@ -1,186 +1,165 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viết Thư | SecretLetter</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viết Thư | SecretLetter</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&family=Dancing+Script:wght@500&family=Great+Vibes&family=Pacifico&family=Lora&family=Merriweather&family=Montserrat&family=Raleway&family=Quicksand&family=Caveat&family=Indie+Flower&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="write.css">
+<link rel="stylesheet" href="write.css">
 </head>
 
+<body class="default">
+
+<div class="background-blur"></div>
+
+<div class="card">
+<h1>Viết một lá thư 💌</h1>
+
+<form id="letterForm">
+
+<div class="input-group">
+<label>Người nhận</label>
+<input type="text" id="to" required maxlength="100">
+</div>
+
+<div class="input-group">
+<label>Chủ đề</label>
+<input type="text" id="subject" maxlength="150">
+</div>
+
+<div class="input-group">
+<label>Nội dung</label>
+
+<div class="toolbar">
+<button type="button" onclick="format('bold')"><b>B</b></button>
+<button type="button" onclick="format('italic')"><i>I</i></button>
+<button type="button" onclick="format('underline')"><u>U</u></button>
+
+<select id="fontSelect">
+<option value="">Font đoạn</option>
+<option value="'Great Vibes'">Great Vibes</option>
+<option value="'Pacifico'">Pacifico</option>
+<option value="'Montserrat'">Montserrat</option>
+<option value="'Caveat'">Caveat</option>
+</select>
+
+<input type="color" id="colorPicker">
+</div>
+
+<div id="editor" contenteditable="true" class="editor"></div>
+<span id="charCount">0 / 2000</span>
+</div>
+
+<div class="row">
+<div class="input-group half">
+<label>Mật khẩu (tuỳ chọn)</label>
+<input type="password" id="password">
+</div>
+
+<div class="input-group half">
+<label>Thời hạn</label>
+<select id="expiry">
+<option value="1">1 ngày</option>
+<option value="7" selected>7 ngày</option>
+<option value="30">30 ngày</option>
+<option value="0">Vĩnh viễn</option>
+</select>
+</div>
+</div>
+
+<!-- STYLE PANEL -->
+<div class="style-panel">
+<h3>Tuỳ chỉnh phong cách ✨</h3>
+
+<div class="input-group">
+<label>Theme</label>
+<select id="theme">
+<option value="default">Default</option>
+<option value="romantic">Romantic</option>
+<option value="loving">Loving</option>
+<option value="cute">Cute</option>
+<option value="dracula">Dracula</option>
+<option value="sunset">Sunset</option>
+<option value="ocean">Ocean</option>
+</select>
+</div>
+</div>
+
+<button type="submit">Tạo thư</button>
+
+</form>
+</div>
+
 <script type="module">
+
+/* ================= FIREBASE ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, doc, setDoc } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBznlEjaRHE7my7mFZTKgldokLGmkL609A",
-  authDomain: "screctletters.firebaseapp.com",
-  projectId: "screctletters",
-  storageBucket: "screctletters.firebasestorage.app",
-  messagingSenderId: "916940604225",
-  appId: "1:916940604225:web:faf88856504271362ed7c0",
-  measurementId: "G-KJFKX7M26P"
+apiKey: "AIzaSy...",
+authDomain: "screctletters.firebaseapp.com",
+projectId: "screctletters",
+storageBucket: "screctletters.firebasestorage.app",
+messagingSenderId: "916940604225",
+appId: "1:916940604225:web:faf88856504271362ed7c0"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.db = db;
-window.firebaseSetDoc = async (id, data) => {
-  await setDoc(doc(db, "letters", id), data);
+/* ================= EDITOR ================= */
+
+window.format = function(cmd){
+document.execCommand(cmd, false, null);
 };
+
+document.getElementById("fontSelect").addEventListener("change", function(){
+document.execCommand("fontName", false, this.value);
+});
+
+document.getElementById("colorPicker").addEventListener("input", function(){
+document.execCommand("foreColor", false, this.value);
+});
+
+const editor = document.getElementById("editor");
+const charCount = document.getElementById("charCount");
+
+editor.addEventListener("input", function(){
+let length = editor.innerText.length;
+charCount.textContent = length + " / 2000";
+});
+
+/* ================= THEME ================= */
+
+const themes = ["default","romantic","loving","cute","dracula","sunset","ocean"];
+
+document.getElementById("theme").addEventListener("change", function(){
+themes.forEach(t => document.body.classList.remove(t));
+document.body.classList.add(this.value);
+});
+
+/* ================= FORM SUBMIT ================= */
+
+document.getElementById("letterForm").addEventListener("submit", async function(e){
+e.preventDefault();
+
+const id = Math.random().toString(36).substring(2,10);
+
+await setDoc(doc(db,"letters",id),{
+to: document.getElementById("to").value,
+subject: document.getElementById("subject").value,
+content: editor.innerHTML,
+password: document.getElementById("password").value,
+expiry: document.getElementById("expiry").value,
+createdAt: Date.now()
+});
+
+alert("Tạo thư thành công!");
+});
+
 </script>
-
-<body>
-
-  <div class="background-blur"></div>
-
-  <div class="card">
-    <h1>Viết một lá thư 💌</h1>
-
-    <form id="letterForm">
-
-      <div class="input-group">
-        <label>Người nhận</label>
-        <input type="text" id="to" placeholder="Ví dụ: Một người đặc biệt..." required maxlength="100">
-      </div>
-
-      <div class="input-group">
-        <label>Chủ đề</label>
-        <input type="text" id="subject" placeholder="Một điều mình muốn nói..." maxlength="150">
-      </div>
-
-      <div class="input-group">
-        <label>Nội dung</label>
-
-        <div class="toolbar">
-          <button type="button" onclick="format('bold')"><b>B</b></button>
-          <button type="button" onclick="format('italic')"><i>I</i></button>
-          <button type="button" onclick="format('underline')"><u>U</u></button>
-
-          <select onchange="setFont(this.value)">
-            <option value="">Font đoạn</option>
-            <option value="'Great Vibes'">Great Vibes</option>
-            <option value="'Pacifico'">Pacifico</option>
-            <option value="'Montserrat'">Montserrat</option>
-            <option value="'Caveat'">Caveat</option>
-          </select>
-
-          <input type="color" onchange="setColor(this.value)">
-        </div>
-
-        <div id="editor" contenteditable="true" class="editor"></div>
-        <span id="charCount">0 / 2000</span>
-      </div>
-
-      <div class="row">
-        <div class="input-group half">
-          <label>Mật khẩu (tuỳ chọn)</label>
-          <input type="password" id="password" placeholder="Đặt mật khẩu">
-        </div>
-
-        <div class="input-group half">
-          <label>Thời hạn</label>
-          <select id="expiry">
-            <option value="1">1 ngày</option>
-            <option value="7" selected>7 ngày</option>
-            <option value="30">30 ngày</option>
-            <option value="0">Vĩnh viễn</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- STYLE PANEL -->
-      <div class="style-panel">
-        <h3>Tuỳ chỉnh phong cách ✨</h3>
-
-        <div class="input-group">
-          <label>Font toàn thư</label>
-          <select id="fontFamily">
-            <option value="'Playfair Display', serif">Playfair</option>
-            <option value="'Inter', sans-serif">Inter</option>
-            <option value="'Dancing Script', cursive">Dancing Script</option>
-            <option value="'Great Vibes', cursive">Great Vibes</option>
-            <option value="'Pacifico', cursive">Pacifico</option>
-            <option value="'Lora', serif">Lora</option>
-            <option value="'Merriweather', serif">Merriweather</option>
-            <option value="'Montserrat', sans-serif">Montserrat</option>
-            <option value="'Raleway', sans-serif">Raleway</option>
-            <option value="'Quicksand', sans-serif">Quicksand</option>
-            <option value="'Caveat', cursive">Caveat</option>
-            <option value="'Indie Flower', cursive">Indie Flower</option>
-          </select>
-        </div>
-
-        <div class="input-group">
-          <label>Cỡ chữ: <span id="fontSizeValue">16px</span></label>
-          <input type="range" id="fontSize" min="14" max="36" value="16">
-        </div>
-
-        <div class="input-group">
-          <label>Màu chữ</label>
-          <input type="color" id="colorPicker" value="#ffffff">
-          <input type="text" id="colorText" placeholder="#ff4d6d hoặc rgb(255,0,0)">
-        </div>
-      </div>
-
-      <!-- Custom ID -->
-      <div class="input-group">
-        <label>Custom ID (tuỳ chọn)</label>
-        <input type="text" id="customId" placeholder="vd: myletters">
-      </div>
-
-      <!-- Theme -->
-<div class="input-group">
-  <label>Theme</label>
-  <select id="theme">
-    <option value="default">Default</option>
-    <option value="romantic">Romantic</option>
-    <option value="loving">Loving</option>
-    <option value="cute">Cute</option>
-    <option value="dracula">Dracula</option>
-    <option value="sunset">Sunset</option>
-    <option value="ocean">Ocean</option>
-  </select>
-</div>
-
-      <div class="preview">
-        <h3>Xem trước 👀</h3>
-        <div id="previewText">
-          Nội dung thư của bạn sẽ hiển thị ở đây...
-        </div>
-      </div>
-
-      <button type="submit" class="send-btn">
-        Tạo liên kết bí mật ✨
-      </button>
-
-    </form>
-  </div>
-
-  <!-- POPUP -->
-  <div id="popup" class="popup hidden">
-    <div class="popup-box">
-      <h3>🎉 Thành công!</h3>
-      <p id="popupMessage"></p>
-      <input type="text" id="popupLink" readonly>
-      <div class="popup-actions">
-        <button type="button" onclick="copyLink()">Copy</button>
-        <button type="button" onclick="closePopup()">Đóng</button>
-        <p id="copySuccess" class="copy-success hidden">
-  Đã sao chép link thành công
-</p>
-      </div>
-    </div>
-  </div>
-
-  <script src="write.js", type="module"></script>
 
 </body>
 </html>
