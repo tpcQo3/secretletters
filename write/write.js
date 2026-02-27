@@ -168,16 +168,15 @@ function copyLink() {
 
 const themeSelect = document.getElementById("theme");
 
-themeSelect.addEventListener("change", () => {
-  applyTheme(themeSelect.value);
-});
+// set mặc định
+document.body.classList.add("default");
 
-function applyTheme(theme) {
-  const previewContainer = document.getElementById("previewContainer");
+themeSelect.addEventListener("change", () => {
+  const theme = themeSelect.value;
 
   // reset class cũ
-  previewContainer.className = "theme-preview";
+  document.body.className = "";
 
   // add theme mới
-  previewContainer.classList.add("theme-" + theme);
-}
+  document.body.classList.add(theme);
+});
