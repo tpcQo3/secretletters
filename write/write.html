@@ -17,16 +17,19 @@
 
 <form id="letterForm">
 
+<!-- Người nhận -->
 <div class="input-group">
-<label>Người nhận</label>
+<label for="to">Người nhận</label>
 <input type="text" id="to" required maxlength="100">
 </div>
 
+<!-- Chủ đề -->
 <div class="input-group">
-<label>Chủ đề</label>
+<label for="subject">Chủ đề</label>
 <input type="text" id="subject" maxlength="150">
 </div>
 
+<!-- Nội dung -->
 <div class="input-group">
 <label>Nội dung</label>
 
@@ -37,10 +40,10 @@
 
 <select id="fontSelect">
 <option value="">Font đoạn</option>
-<option value="'Great Vibes'">Great Vibes</option>
-<option value="'Pacifico'">Pacifico</option>
-<option value="'Montserrat'">Montserrat</option>
-<option value="'Caveat'">Caveat</option>
+<option value="Great Vibes">Great Vibes</option>
+<option value="Pacifico">Pacifico</option>
+<option value="Montserrat">Montserrat</option>
+<option value="Caveat">Caveat</option>
 </select>
 
 <input type="color" id="colorPicker">
@@ -50,14 +53,15 @@
 <span id="charCount">0 / 2000</span>
 </div>
 
+<!-- Password + Expiry -->
 <div class="row">
 <div class="input-group half">
-<label>Mật khẩu (tuỳ chọn)</label>
+<label for="password">Mật khẩu (tuỳ chọn)</label>
 <input type="password" id="password">
 </div>
 
 <div class="input-group half">
-<label>Thời hạn</label>
+<label for="expiry">Thời hạn</label>
 <select id="expiry">
 <option value="1">1 ngày</option>
 <option value="7" selected>7 ngày</option>
@@ -67,12 +71,12 @@
 </div>
 </div>
 
-<!-- STYLE PANEL -->
+<!-- Theme -->
 <div class="style-panel">
 <h3>Tuỳ chỉnh phong cách ✨</h3>
 
 <div class="input-group">
-<label>Theme</label>
+<label for="theme">Theme</label>
 <select id="theme">
 <option value="default">Default</option>
 <option value="romantic">Romantic</option>
@@ -85,7 +89,7 @@
 </div>
 </div>
 
-<button type="submit">Tạo thư</button>
+<button type="submit", class="send-btn">Tạo thư</button>
 
 </form>
 </div>
@@ -116,7 +120,9 @@ document.execCommand(cmd, false, null);
 };
 
 document.getElementById("fontSelect").addEventListener("change", function(){
+if(this.value){
 document.execCommand("fontName", false, this.value);
+}
 });
 
 document.getElementById("colorPicker").addEventListener("input", function(){
@@ -157,6 +163,9 @@ createdAt: Date.now()
 });
 
 alert("Tạo thư thành công!");
+this.reset();
+editor.innerHTML = "";
+charCount.textContent = "0 / 2000";
 });
 
 </script>
