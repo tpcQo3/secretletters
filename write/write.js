@@ -19,18 +19,13 @@ editor.addEventListener("input", () => {
   const htmlContent = editor.innerHTML;
   const textLength = editor.innerText.length;
 
-  // Giữ format HTML
-  previewText.innerHTML = htmlContent || 
-    "Nội dung thư của bạn sẽ hiển thị ở đây...";
-
-  // Update char count
-  charCount.textContent = `${textLength} / 2000`;
-
-  if (textLength > 2000) {
-    charCount.style.color = "red";
-  } else {
-    charCount.style.color = "white";
+  if (previewText) {
+    previewText.innerHTML = htmlContent || 
+      "Nội dung thư của bạn sẽ hiển thị ở đây...";
   }
+
+  charCount.textContent = `${textLength} / 2000`;
+  charCount.style.color = textLength > 2000 ? "red" : "";
 });
 
 
