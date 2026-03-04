@@ -199,3 +199,9 @@ themeSelect.addEventListener("change", () => {
   // add theme mới
   document.body.classList.add(theme);
 });
+
+previewText.addEventListener("click", (e) => {
+  if (e.target.classList.contains("spoiler")) {
+    e.target.classList.toggle("reveal");
+  }
+});
