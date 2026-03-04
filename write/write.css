@@ -446,7 +446,7 @@ body.loving::after {
   100% { transform: scale(1); opacity: 0.4; }
 }
 
-.preview-box {
+#editor {
   margin-top: 20px;
   padding: 20px;
   border-radius: 12px;
