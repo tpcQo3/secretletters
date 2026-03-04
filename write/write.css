@@ -445,3 +445,12 @@ body.loving::after {
   50% { transform: scale(1.2); opacity: 0.6; }
   100% { transform: scale(1); opacity: 0.4; }
 }
+
+.preview-box {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f8f8ff;
+  min-height: 120px;
+  border: 1px solid #ddd;
+}
