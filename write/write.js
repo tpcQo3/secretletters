@@ -20,7 +20,31 @@ editor.addEventListener("input", () => {
   const textLength = editor.innerText.length;
 
   if (previewText) {
-    previewText.innerHTML = htmlContent || 
+    function parseCustomTags(html) {
+
+  // 1️⃣ Spoiler: || nội dung ||
+  html = html.replace(/\|\|(.*?)\|\|/g, function(match, content) {
+    return `<span class="spoiler">${content}</span>`;
+  });
+
+  // 2️⃣ Link custom: <<url>: text>>
+  html = html.replace(/<<\s*(https?:\/\/[^>]+?)\s*:\s*(.*?)\s*>>/g,
+    function(match, url, text) {
+      return `<a href="${url}" class="custom-link" target="_blank">${text}</a>`;
+    });
+
+  return html;
+}
+
+editor.addEventListener("input", () => {
+
+  let htmlContent = editor.innerHTML;
+  let parsed = parseCustomTags(htmlContent);
+
+  previewText.innerHTML = parsed;
+
+  charCount.textContent = `${editor.innerText.length} / 2000`;
+});
       "Nội dung thư của bạn sẽ hiển thị ở đây...";
   }
 
