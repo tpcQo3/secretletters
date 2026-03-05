@@ -456,16 +456,17 @@ body.loving .editor::selection {
 }
 
 .spoiler{
-  background:#2f3136;
-  color:transparent;
-  border-radius:3px;
-  padding:2px 5px;
   cursor:pointer;
+  filter: blur(6px);
+  background:rgba(0,0,0,0.15);
+  border-radius:4px;
+  padding:2px 4px;
+  transition:0.25s;
 }
 
 .spoiler.reveal{
+  filter:blur(0);
   background:transparent;
-  color:inherit;
 }
 
 .hidden-link{
