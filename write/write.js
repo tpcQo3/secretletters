@@ -9,66 +9,83 @@ const fontSizeInput = document.getElementById("fontSize");
 const fontSizeValue = document.getElementById("fontSizeValue");
 const colorPicker = document.getElementById("colorPicker");
 const colorText = document.getElementById("colorText");
-
 const themeSelect = document.getElementById("theme");
 
-function parseCustomTags(html){
 
-  // ===== ESCAPE HTML (basic anti XSS)
-  html = html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// =========================
+// PARSE MARKDOWN TAGS
+// =========================
+function parseCustomTags(text){
 
-  // ===== TITLE
-  html = html.replace(/^## (.*)$/gm, "<h3>$1</h3>");
-  html = html.replace(/^# (.*)$/gm, "<h2>$1</h2>");
+  if(!text) return "";
+
+  // escape html
+  text = text
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;");
+
+  // ===== TITLES
+  text = text.replace(/^##\s(.+)$/gm,"<h3>$1</h3>");
+  text = text.replace(/^#\s(.+)$/gm,"<h2>$1</h2>");
 
   // ===== BOLD
-  html = html.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+  text = text.replace(/\*\*(.*?)\*\*/g,"<b>$1</b>");
 
   // ===== UNDERLINE
-  html = html.replace(/__(.*?)__/g, "<u>$1</u>");
+  text = text.replace(/__(.*?)__/g,"<u>$1</u>");
 
   // ===== SPOILER
-  html = html.replace(/\|\|(.*?)\|\|/g,
+  text = text.replace(/\|\|([\s\S]*?)\|\|/g,
     `<span class="spoiler">$1</span>`
   );
 
   // ===== CUSTOM LINK
-  html = html.replace(/<<\s*(https?:\/\/[^>]+?)\s*:\s*(.*?)\s*>>/g,
+  text = text.replace(
+    /<<\s*(https?:\/\/[^\s]+)\s*:\s*([^>]+)\s*>>/g,
     `<a href="$1" class="custom-link" target="_blank">$2</a>`
   );
 
   // ===== LINE BREAK
-  html = html.replace(/\n/g,"<br>");
+  text = text.replace(/\n/g,"<br>");
 
-  return html;
+  return text;
 }
 
 
 // =========================
 // PREVIEW + CHARACTER COUNT
 // =========================
+if(editor){
+
 editor.addEventListener("input", () => {
 
-  const htmlContent = editor.innerHTML;
-  const parsed = parseCustomTags(htmlContent);
+  const rawText = editor.innerText;
+
+  const parsed = parseCustomTags(rawText);
 
   if(previewText){
     previewText.innerHTML =
       parsed || "Nội dung thư của bạn sẽ hiển thị ở đây...";
   }
 
-  const textLength = editor.innerText.length;
+  const textLength = rawText.length;
 
-  charCount.textContent = `${textLength} / 2000`;
-
-  charCount.style.color = textLength > 2000 ? "red" : "";
+  if(charCount){
+    charCount.textContent = `${textLength} / 2000`;
+    charCount.style.color = textLength > 2000 ? "red" : "";
+  }
 
 });
+
+}
 
 
 // =========================
 // SPOILER CLICK
 // =========================
+if(previewText){
+
 previewText.addEventListener("click", (e) => {
 
   if(e.target.classList.contains("spoiler")){
@@ -77,38 +94,43 @@ previewText.addEventListener("click", (e) => {
 
 });
 
+}
+
 
 // =========================
 // SUBMIT + FIREBASE SAVE
 // =========================
+if(form){
+
 form.addEventListener("submit", async (e) => {
 
   e.preventDefault();
 
-  const to = document.getElementById("to").value.trim();
-  const subject = document.getElementById("subject").value.trim();
-  const message = editor.innerHTML.trim();
-  const password = document.getElementById("password").value;
-  const expiryDays = document.getElementById("expiry").value;
+  const to = document.getElementById("to")?.value.trim();
+  const subject = document.getElementById("subject")?.value.trim();
+  const password = document.getElementById("password")?.value;
+  const expiryDays = document.getElementById("expiry")?.value;
   const customIdInput = document.getElementById("customId")?.value.trim();
-  const theme = document.getElementById("theme").value;
+  const theme = themeSelect?.value;
 
-  if(!editor.innerText.trim()){
+  const message = editor.innerText.trim();
+
+  if(!message){
     showPopup("Bạn chưa viết nội dung 💌");
     return;
   }
 
-  // ===== ID =====
+  // ===== ID
   let id = customIdInput || Math.random().toString(36).substring(2,10);
 
-  // ===== EXPIRY =====
+  // ===== EXPIRY
   let expiry = null;
 
-  if(expiryDays !== "0"){
+  if(expiryDays && expiryDays !== "0"){
     expiry = Date.now() + (expiryDays * 24 * 60 * 60 * 1000);
   }
 
-  // ===== HASH PASSWORD =====
+  // ===== PASSWORD
   let hashedPassword = null;
 
   if(password){
@@ -132,15 +154,20 @@ form.addEventListener("submit", async (e) => {
 
     const link = `${window.location.origin}/l/${id}`;
 
-    showPopup("Tạo thư thành công 💌", link);
+    showPopup("Tạo thư thành công 💌",link);
 
     form.reset();
 
     editor.innerHTML = "";
-    previewText.innerHTML =
-      "Nội dung thư của bạn sẽ hiển thị ở đây...";
 
-    charCount.textContent = "0 / 2000";
+    if(previewText){
+      previewText.innerHTML =
+      "Nội dung thư của bạn sẽ hiển thị ở đây...";
+    }
+
+    if(charCount){
+      charCount.textContent = "0 / 2000";
+    }
 
   }
   catch(err){
@@ -153,52 +180,66 @@ form.addEventListener("submit", async (e) => {
 
 });
 
+}
+
 
 // =========================
 // STYLE CONTROLS
 // =========================
 if(fontSelect){
-  fontSelect.addEventListener("change", () => {
+fontSelect.addEventListener("change", () => {
 
-    editor.style.fontFamily = fontSelect.value;
+  editor.style.fontFamily = fontSelect.value;
+
+  if(previewText){
     previewText.style.fontFamily = fontSelect.value;
+  }
 
-  });
+});
 }
 
 if(fontSizeInput){
-  fontSizeInput.addEventListener("input", () => {
+fontSizeInput.addEventListener("input", () => {
 
-    editor.style.fontSize = fontSizeInput.value + "px";
+  editor.style.fontSize = fontSizeInput.value + "px";
+
+  if(previewText){
     previewText.style.fontSize = fontSizeInput.value + "px";
+  }
 
-    if(fontSizeValue){
-      fontSizeValue.textContent = fontSizeInput.value + "px";
-    }
+  if(fontSizeValue){
+    fontSizeValue.textContent = fontSizeInput.value + "px";
+  }
 
-  });
+});
 }
 
 if(colorPicker){
-  colorPicker.addEventListener("input", () => {
+colorPicker.addEventListener("input", () => {
 
-    editor.style.color = colorPicker.value;
+  editor.style.color = colorPicker.value;
+
+  if(previewText){
     previewText.style.color = colorPicker.value;
+  }
 
-    if(colorText){
-      colorText.value = colorPicker.value;
-    }
+  if(colorText){
+    colorText.value = colorPicker.value;
+  }
 
-  });
+});
 }
 
 if(colorText){
-  colorText.addEventListener("input", () => {
+colorText.addEventListener("input", () => {
 
-    editor.style.color = colorText.value;
+  editor.style.color = colorText.value;
+
+  if(previewText){
     previewText.style.color = colorText.value;
+  }
 
-  });
+});
 }
 
 
@@ -232,16 +273,20 @@ function setColor(color){
 // =========================
 function showPopup(message,link=""){
 
-  document.getElementById("popupMessage").innerText = message;
-  document.getElementById("popupLink").value = link;
+  const msg = document.getElementById("popupMessage");
+  const linkInput = document.getElementById("popupLink");
+  const popup = document.getElementById("popup");
 
-  document.getElementById("popup").classList.remove("hidden");
+  if(msg) msg.innerText = message;
+  if(linkInput) linkInput.value = link;
+
+  popup?.classList.remove("hidden");
 
 }
 
 function closePopup(){
 
-  document.getElementById("popup").classList.add("hidden");
+  document.getElementById("popup")?.classList.add("hidden");
 
 }
 
@@ -250,12 +295,14 @@ function copyLink(){
   const input = document.getElementById("popupLink");
   const successText = document.getElementById("copySuccess");
 
+  if(!input) return;
+
   navigator.clipboard.writeText(input.value).then(()=>{
 
-    successText.classList.remove("hidden");
+    successText?.classList.remove("hidden");
 
     setTimeout(()=>{
-      successText.classList.add("hidden");
+      successText?.classList.add("hidden");
     },2000);
 
   });
@@ -266,6 +313,8 @@ function copyLink(){
 // =========================
 // THEME SWITCH
 // =========================
+if(themeSelect){
+
 document.body.classList.add("default");
 
 themeSelect.addEventListener("change", () => {
@@ -277,3 +326,5 @@ themeSelect.addEventListener("change", () => {
   document.body.classList.add(theme);
 
 });
+
+}
