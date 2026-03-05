@@ -12,23 +12,33 @@ const colorText = document.getElementById("colorText");
 
 const themeSelect = document.getElementById("theme");
 
-
-// =========================
-// CUSTOM TAG PARSER
-// =========================
 function parseCustomTags(html){
 
-  // Spoiler || text ||
-  html = html.replace(/\|\|(.*?)\|\|/g, function(match, content){
-    return `<span class="spoiler">${content}</span>`;
-  });
+  // ===== ESCAPE HTML (basic anti XSS)
+  html = html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-  // Custom link <<url: text>>
-  html = html.replace(/<<\s*(https?:\/\/[^>]+?)\s*:\s*(.*?)\s*>>/g,
-    function(match, url, text){
-      return `<a href="${url}" class="custom-link" target="_blank">${text}</a>`;
-    }
+  // ===== TITLE
+  html = html.replace(/^## (.*)$/gm, "<h3>$1</h3>");
+  html = html.replace(/^# (.*)$/gm, "<h2>$1</h2>");
+
+  // ===== BOLD
+  html = html.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+
+  // ===== UNDERLINE
+  html = html.replace(/__(.*?)__/g, "<u>$1</u>");
+
+  // ===== SPOILER
+  html = html.replace(/\|\|(.*?)\|\|/g,
+    `<span class="spoiler">$1</span>`
   );
+
+  // ===== CUSTOM LINK
+  html = html.replace(/<<\s*(https?:\/\/[^>]+?)\s*:\s*(.*?)\s*>>/g,
+    `<a href="$1" class="custom-link" target="_blank">$2</a>`
+  );
+
+  // ===== LINE BREAK
+  html = html.replace(/\n/g,"<br>");
 
   return html;
 }
