@@ -10,6 +10,29 @@ const fontSizeValue = document.getElementById("fontSizeValue");
 const colorPicker = document.getElementById("colorPicker");
 const colorText = document.getElementById("colorText");
 
+const themeSelect = document.getElementById("theme");
+
+
+// =========================
+// CUSTOM TAG PARSER
+// =========================
+function parseCustomTags(html){
+
+  // Spoiler || text ||
+  html = html.replace(/\|\|(.*?)\|\|/g, function(match, content){
+    return `<span class="spoiler">${content}</span>`;
+  });
+
+  // Custom link <<url: text>>
+  html = html.replace(/<<\s*(https?:\/\/[^>]+?)\s*:\s*(.*?)\s*>>/g,
+    function(match, url, text){
+      return `<a href="${url}" class="custom-link" target="_blank">${text}</a>`;
+    }
+  );
+
+  return html;
+}
+
 
 // =========================
 // PREVIEW + CHARACTER COUNT
@@ -17,39 +40,31 @@ const colorText = document.getElementById("colorText");
 editor.addEventListener("input", () => {
 
   const htmlContent = editor.innerHTML;
-  const textLength = editor.innerText.length;
+  const parsed = parseCustomTags(htmlContent);
 
-  if (previewText) {
-    function parseCustomTags(html) {
-
-  // 1️⃣ Spoiler: || nội dung ||
-  html = html.replace(/\|\|(.*?)\|\|/g, function(match, content) {
-    return `<span class="spoiler">${content}</span>`;
-  });
-
-  // 2️⃣ Link custom: <<url>: text>>
-  html = html.replace(/<<\s*(https?:\/\/[^>]+?)\s*:\s*(.*?)\s*>>/g,
-    function(match, url, text) {
-      return `<a href="${url}" class="custom-link" target="_blank">${text}</a>`;
-    });
-
-  return html;
-}
-
-editor.addEventListener("input", () => {
-
-  let htmlContent = editor.innerHTML;
-  let parsed = parseCustomTags(htmlContent);
-
-  previewText.innerHTML = parsed;
-
-  charCount.textContent = `${editor.innerText.length} / 2000`;
-});
-      "Nội dung thư của bạn sẽ hiển thị ở đây...";
+  if(previewText){
+    previewText.innerHTML =
+      parsed || "Nội dung thư của bạn sẽ hiển thị ở đây...";
   }
 
+  const textLength = editor.innerText.length;
+
   charCount.textContent = `${textLength} / 2000`;
+
   charCount.style.color = textLength > 2000 ? "red" : "";
+
+});
+
+
+// =========================
+// SPOILER CLICK
+// =========================
+previewText.addEventListener("click", (e) => {
+
+  if(e.target.classList.contains("spoiler")){
+    e.target.classList.toggle("reveal");
+  }
+
 });
 
 
@@ -57,6 +72,7 @@ editor.addEventListener("input", () => {
 // SUBMIT + FIREBASE SAVE
 // =========================
 form.addEventListener("submit", async (e) => {
+
   e.preventDefault();
 
   const to = document.getElementById("to").value.trim();
@@ -64,41 +80,43 @@ form.addEventListener("submit", async (e) => {
   const message = editor.innerHTML.trim();
   const password = document.getElementById("password").value;
   const expiryDays = document.getElementById("expiry").value;
-  const customIdInput = document.getElementById("customId").value.trim();
+  const customIdInput = document.getElementById("customId")?.value.trim();
   const theme = document.getElementById("theme").value;
 
-  if (!editor.innerText.trim()) {
+  if(!editor.innerText.trim()){
     showPopup("Bạn chưa viết nội dung 💌");
     return;
   }
 
   // ===== ID =====
-  let id = customIdInput || Math.random().toString(36).substring(2, 10);
+  let id = customIdInput || Math.random().toString(36).substring(2,10);
 
   // ===== EXPIRY =====
   let expiry = null;
-  if (expiryDays !== "0") {
+
+  if(expiryDays !== "0"){
     expiry = Date.now() + (expiryDays * 24 * 60 * 60 * 1000);
   }
 
   // ===== HASH PASSWORD =====
   let hashedPassword = null;
-  if (password) {
+
+  if(password){
     hashedPassword = btoa(password);
   }
 
-  try {
+  try{
 
-    await window.firebaseSetDoc(id, {
+    await window.firebaseSetDoc(id,{
       to,
       subject,
       message,
       password: hashedPassword,
       expiry,
       theme,
-      font: fontSelect.value,
-      fontSize: fontSizeInput.value,
-      color: colorPicker.value,
+      font: fontSelect?.value,
+      fontSize: fontSizeInput?.value,
+      color: colorPicker?.value,
       createdAt: Date.now()
     });
 
@@ -107,101 +125,145 @@ form.addEventListener("submit", async (e) => {
     showPopup("Tạo thư thành công 💌", link);
 
     form.reset();
+
     editor.innerHTML = "";
-    previewText.innerHTML = "Nội dung thư của bạn sẽ hiển thị ở đây...";
+    previewText.innerHTML =
+      "Nội dung thư của bạn sẽ hiển thị ở đây...";
+
     charCount.textContent = "0 / 2000";
 
-  } catch (err) {
-    console.error(err);
-    showPopup("Lỗi khi lưu thư 😢");
   }
+  catch(err){
+
+    console.error(err);
+
+    showPopup("Lỗi khi lưu thư 😢");
+
+  }
+
 });
 
 
 // =========================
-// STYLE CONTROLS (TOÀN THƯ)
+// STYLE CONTROLS
 // =========================
-fontSelect.addEventListener("change", () => {
-  editor.style.fontFamily = fontSelect.value;
-  previewText.style.fontFamily = fontSelect.value;
-});
+if(fontSelect){
+  fontSelect.addEventListener("change", () => {
 
-fontSizeInput.addEventListener("input", () => {
-  editor.style.fontSize = fontSizeInput.value + "px";
-  previewText.style.fontSize = fontSizeInput.value + "px";
-  fontSizeValue.textContent = fontSizeInput.value + "px";
-});
+    editor.style.fontFamily = fontSelect.value;
+    previewText.style.fontFamily = fontSelect.value;
 
-colorPicker.addEventListener("input", () => {
-  editor.style.color = colorPicker.value;
-  previewText.style.color = colorPicker.value;
-  colorText.value = colorPicker.value;
-});
+  });
+}
 
-colorText.addEventListener("input", () => {
-  editor.style.color = colorText.value;
-  previewText.style.color = colorText.value;
-});
+if(fontSizeInput){
+  fontSizeInput.addEventListener("input", () => {
+
+    editor.style.fontSize = fontSizeInput.value + "px";
+    previewText.style.fontSize = fontSizeInput.value + "px";
+
+    if(fontSizeValue){
+      fontSizeValue.textContent = fontSizeInput.value + "px";
+    }
+
+  });
+}
+
+if(colorPicker){
+  colorPicker.addEventListener("input", () => {
+
+    editor.style.color = colorPicker.value;
+    previewText.style.color = colorPicker.value;
+
+    if(colorText){
+      colorText.value = colorPicker.value;
+    }
+
+  });
+}
+
+if(colorText){
+  colorText.addEventListener("input", () => {
+
+    editor.style.color = colorText.value;
+    previewText.style.color = colorText.value;
+
+  });
+}
 
 
 // =========================
 // TOOLBAR FORMAT
 // =========================
-function format(command) {
+function format(command){
+
   editor.focus();
-  document.execCommand(command, false, null);
+  document.execCommand(command,false,null);
+
 }
 
-function setFont(font) {
+function setFont(font){
+
   editor.focus();
-  document.execCommand("fontName", false, font);
+  document.execCommand("fontName",false,font);
+
 }
 
-function setColor(color) {
+function setColor(color){
+
   editor.focus();
-  document.execCommand("foreColor", false, color);
+  document.execCommand("foreColor",false,color);
+
 }
 
-function showPopup(message, link = "") {
+
+// =========================
+// POPUP
+// =========================
+function showPopup(message,link=""){
+
   document.getElementById("popupMessage").innerText = message;
   document.getElementById("popupLink").value = link;
+
   document.getElementById("popup").classList.remove("hidden");
+
 }
 
-function closePopup() {
+function closePopup(){
+
   document.getElementById("popup").classList.add("hidden");
+
 }
 
-function copyLink() {
+function copyLink(){
+
   const input = document.getElementById("popupLink");
   const successText = document.getElementById("copySuccess");
 
-  navigator.clipboard.writeText(input.value).then(() => {
+  navigator.clipboard.writeText(input.value).then(()=>{
+
     successText.classList.remove("hidden");
 
-    setTimeout(() => {
+    setTimeout(()=>{
       successText.classList.add("hidden");
-    }, 2000);
+    },2000);
+
   });
+
 }
 
-const themeSelect = document.getElementById("theme");
 
-// set mặc định
+// =========================
+// THEME SWITCH
+// =========================
 document.body.classList.add("default");
 
 themeSelect.addEventListener("change", () => {
+
   const theme = themeSelect.value;
 
-  // reset class cũ
   document.body.className = "";
 
-  // add theme mới
   document.body.classList.add(theme);
-});
 
-previewText.addEventListener("click", (e) => {
-  if (e.target.classList.contains("spoiler")) {
-    e.target.classList.toggle("reveal");
-  }
 });
