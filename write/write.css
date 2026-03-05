@@ -457,13 +457,20 @@ body.loving .editor::selection {
 
 /* ===== SPOILER ===== */
 
+/* SPOILER */
+
 .spoiler{
-  filter:blur(6px);
+  filter: blur(6px);
+  background:#444;
+  border-radius:4px;
+  padding:2px 6px;
   cursor:pointer;
+  transition:0.2s;
 }
 
 .spoiler.reveal{
-  filter:blur(0);
+  filter: blur(0);
+  background:transparent;
 }
 
 /* hover */
