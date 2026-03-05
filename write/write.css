@@ -458,22 +458,15 @@ body.loving .editor::selection {
 /* ===== SPOILER ===== */
 
 .spoiler{
-  background:#444;
-  color:transparent;
-  border-radius:4px;
-  padding:2px 6px;
+  filter:blur(6px);
   cursor:pointer;
-  user-select:none;
-  transition:all .2s ease;
+}
+
+.spoiler.reveal{
+  filter:blur(0);
 }
 
 /* hover */
 .spoiler:hover{
   background:#666;
-}
-
-/* khi mở */
-.spoiler.reveal{
-  color:inherit;
-  background:rgba(0,0,0,0.15);
 }
