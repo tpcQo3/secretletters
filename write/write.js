@@ -80,10 +80,6 @@ editor.addEventListener("input", () => {
 
 }
 
-
-// =========================
-// SPOILER CLICK
-// =========================
 if(previewText){
 
 previewText.addEventListener("click", (e) => {
@@ -96,10 +92,6 @@ previewText.addEventListener("click", (e) => {
 
 }
 
-
-// =========================
-// SUBMIT + FIREBASE SAVE
-// =========================
 if(form){
 
 form.addEventListener("submit", async (e) => {
@@ -130,7 +122,6 @@ form.addEventListener("submit", async (e) => {
     expiry = Date.now() + (expiryDays * 24 * 60 * 60 * 1000);
   }
 
-  // ===== PASSWORD
   let hashedPassword = null;
 
   if(password){
