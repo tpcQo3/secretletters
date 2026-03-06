@@ -35,6 +35,10 @@ function parseCustomTags(text){
   // ===== UNDERLINE
   text = text.replace(/__(.*?)__/g,"<u>$1</u>");
 
+  // ===== ITALIC (with * or _)
+  text = text.replace(/\*(.*?)\*/g,"<i>$1</i>");
+  text = text.replace(/_(.*?)_/g,"<i>$1</i>");
+
   // ===== SPOILER
   text = text.replace(/\|\|([\s\S]*?)\|\|/g,
     `<span class="spoiler">$1</span>`
