@@ -65,7 +65,7 @@ if(editor){
 
 editor.addEventListener("input", () => {
 
-  const rawText = editor.innerText;
+  const rawText = editor.innerHTML;
 
   const parsed = parseCustomTags(rawText);
 
@@ -74,7 +74,7 @@ editor.addEventListener("input", () => {
       parsed || "Nội dung thư của bạn sẽ hiển thị ở đây...";
   }
 
-  const textLength = rawText.length;
+  const textLength = editor.innerText.length;
 
   if(charCount){
     charCount.textContent = `${textLength} / 2000`;
