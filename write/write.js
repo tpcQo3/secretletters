@@ -5,6 +5,7 @@ const form = document.getElementById("letterForm");
 const previewText = document.getElementById("previewText");
 
 const fontSelect = document.getElementById("fontFamily");
+const fontSelectText = document.getElementById("fontSelectText");
 const fontSizeInput = document.getElementById("fontSize");
 const fontSizeValue = document.getElementById("fontSizeValue");
 const colorPicker = document.getElementById("colorPicker");
