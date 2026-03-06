@@ -20,11 +20,25 @@ function parseCustomTags(text){
 
   if(!text) return "";
 
-  // escape html
+  // escape html (nhưng giữ lại HTML tags từ editor formatting)
   text = text
   .replace(/&/g,"&amp;")
   .replace(/</g,"&lt;")
   .replace(/>/g,"&gt;");
+
+  // Unescape các HTML tags được phép (font, span, b, i, u, br)
+  text = text
+  .replace(/&lt;font\s+face="(.*?)"&gt;/g, '<font face="$1">')
+  .replace(/&lt;\/font&gt;/g, '</font>')
+  .replace(/&lt;span\s+style="(.*?)"&gt;/g, '<span style="$1">')
+  .replace(/&lt;\/span&gt;/g, '</span>')
+  .replace(/&lt;b&gt;/g, '<b>')
+  .replace(/&lt;\/b&gt;/g, '</b>')
+  .replace(/&lt;i&gt;/g, '<i>')
+  .replace(/&lt;\/i&gt;/g, '</i>')
+  .replace(/&lt;u&gt;/g, '<u>')
+  .replace(/&lt;\/u&gt;/g, '</u>')
+  .replace(/&lt;br&gt;/g, '<br>');
 
   // ===== TITLES
   text = text.replace(/^##\s(.+)$/gm,"<h3>$1</h3>");
