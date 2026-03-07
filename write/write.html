@@ -157,77 +157,24 @@
 
 <script type="module">
 
-/* ================= FIREBASE ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, setDoc } 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSy...",
-authDomain: "screctletters.firebaseapp.com",
-projectId: "screctletters",
-storageBucket: "screctletters.firebasestorage.app",
-messagingSenderId: "916940604225",
-appId: "1:916940604225:web:faf88856504271362ed7c0"
+  apiKey: "AIzaSy...",
+  authDomain: "screctletters.firebaseapp.com",
+  projectId: "screctletters",
+  storageBucket: "screctletters.firebasestorage.app",
+  messagingSenderId: "916940604225",
+  appId: "1:916940604225:web:faf88856504271362ed7c0"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* ================= EDITOR ================= */
-
-window.format = function(cmd){
-document.execCommand(cmd, false, null);
+window.firebaseSetDoc = async (id, data) => {
+  await setDoc(doc(db, "letters", id), data);
 };
-
-document.getElementById("fontSelect").addEventListener("change", function(){
-if(this.value){
-document.execCommand("fontName", false, this.value);
-}
-});
-
-document.getElementById("colorPicker").addEventListener("input", function(){
-document.execCommand("foreColor", false, this.value);
-});
-
-const editor = document.getElementById("editor");
-const charCount = document.getElementById("charCount");
-
-editor.addEventListener("input", function(){
-let length = editor.innerText.length;
-charCount.textContent = length + " / 2000";
-});
-
-/* ================= THEME ================= */
-
-const themes = ["default","romantic","loving","cute","dracula","sunset","ocean"];
-
-document.getElementById("theme").addEventListener("change", function(){
-themes.forEach(t => document.body.classList.remove(t));
-document.body.classList.add(this.value);
-});
-
-/* ================= FORM SUBMIT ================= */
-
-document.getElementById("letterForm").addEventListener("submit", async function(e){
-e.preventDefault();
-
-const id = Math.random().toString(36).substring(2,10);
-
-await setDoc(doc(db,"letters",id),{
-to: document.getElementById("to").value,
-subject: document.getElementById("subject").value,
-content: editor.innerHTML,
-password: document.getElementById("password").value,
-expiry: document.getElementById("expiry").value,
-createdAt: Date.now()
-});
-
-alert("Tạo thư thành công!");
-this.reset();
-editor.innerHTML = "";
-charCount.textContent = "0 / 2000";
-});
 
 </script>
 
