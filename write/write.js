@@ -208,6 +208,34 @@ fontSelect.addEventListener("change", () => {
 });
 }
 
+if(fontSelectText){
+fontSelectText.addEventListener("change", () => {
+
+  if(fontSelectText.value){
+    // Lưu selection hiện tại trước khi focus
+    const selection = window.getSelection();
+    const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+    
+    editor.focus();
+    
+    // Khôi phục selection
+    if(range){
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+    
+    document.execCommand("fontName", false, fontSelectText.value);
+    
+    // Trigger input event để update preview
+    editor.dispatchEvent(new Event("input"));
+    
+    // Reset dropdown
+    fontSelectText.value = "";
+  }
+
+});
+}
+
 if(fontSizeInput){
 fontSizeInput.addEventListener("input", () => {
 
