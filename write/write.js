@@ -4,7 +4,6 @@ const charCount = document.getElementById("charCount");
 const form = document.getElementById("letterForm");
 const previewText = document.getElementById("previewText");
 
-const fontSelect = document.getElementById("fontFamily");
 const fontSelectText = document.getElementById("fontSelectText");
 const fontSizeInput = document.getElementById("fontSize");
 const fontSizeValue = document.getElementById("fontSizeValue");
@@ -158,7 +157,6 @@ form.addEventListener("submit", async (e) => {
       password: hashedPassword,
       expiry,
       theme,
-      font: fontSelect?.value,
       fontSize: fontSizeInput?.value,
       color: colorPicker?.value,
       createdAt: Date.now()
@@ -198,18 +196,6 @@ form.addEventListener("submit", async (e) => {
 // =========================
 // STYLE CONTROLS
 // =========================
-if(fontSelect){
-fontSelect.addEventListener("change", () => {
-
-  editor.style.fontFamily = fontSelect.value;
-
-  if(previewText){
-    previewText.style.fontFamily = fontSelect.value;
-  }
-
-});
-}
-
 if(fontSelectText){
 fontSelectText.addEventListener("change", () => {
 
