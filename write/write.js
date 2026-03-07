@@ -1,4 +1,3 @@
-// ===== ELEMENTS =====
 const editor = document.getElementById("editor");
 const charCount = document.getElementById("charCount");
 const form = document.getElementById("letterForm");
@@ -12,21 +11,16 @@ const colorText = document.getElementById("colorText");
 const themeSelect = document.getElementById("theme");
 
 
-// =========================
-// PARSE MARKDOWN TAGS
-// =========================
 function parseCustomTags(text){
 
   if(!text) return "";
 
-  // escape html (nhưng giữ lại HTML tags từ editor formatting)
   text = text
   .replace(/&/g,"&amp;")
   .replace(/</g,"&lt;")
   .replace(/>/g,"&gt;");
 
-  // Unescape các HTML tags được phép (font, span, b, i, u, br)
-  // Convert deprecated <font face="..."> to <span style="font-family: ...;">
+
   text = text
   .replace(/&lt;font\s+face="(.*?)"&gt;/g, '<span style="font-family: $1;">')
   .replace(/&lt;\/font&gt;/g, '</span>')
@@ -41,41 +35,31 @@ function parseCustomTags(text){
   .replace(/&lt;br&gt;/g, '<br>')
   .replace(/&amp;nbsp;/g, '&nbsp;');
 
-  // ===== TITLES
   text = text.replace(/^##\s(.+)$/gm,"<h3>$1</h3>");
   text = text.replace(/^#\s(.+)$/gm,"<h2>$1</h2>");
 
-  // ===== BOLD
   text = text.replace(/\*\*(.*?)\*\*/g,"<b>$1</b>");
 
-  // ===== UNDERLINE
   text = text.replace(/__(.*?)__/g,"<u>$1</u>");
 
-  // ===== ITALIC (with * or _)
   text = text.replace(/\*(.*?)\*/g,"<i>$1</i>");
   text = text.replace(/_(.*?)_/g,"<i>$1</i>");
 
-  // ===== SPOILER
   text = text.replace(/\|\|([\s\S]*?)\|\|/g,
     `<span class="spoiler">$1</span>`
   );
 
-  // ===== CUSTOM LINK
   text = text.replace(
     /<<\s*(https?:\/\/[^\s]+)\s*:\s*([^>]+)\s*>>/g,
     `<a href="$1" class="custom-link" target="_blank">$2</a>`
   );
 
-  // ===== LINE BREAK
   text = text.replace(/\n/g,"<br>");
 
   return text;
 }
 
 
-// =========================
-// PREVIEW + CHARACTER COUNT
-// =========================
 if(editor){
 
 editor.addEventListener("input", () => {
@@ -132,10 +116,8 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  // ===== ID
   let id = customIdInput || Math.random().toString(36).substring(2,10);
 
-  // ===== EXPIRY
   let expiry = null;
 
   if(expiryDays && expiryDays !== "0"){
@@ -193,19 +175,12 @@ form.addEventListener("submit", async (e) => {
 }
 
 
-// =========================
-// STYLE CONTROLS
-// =========================
 if(fontSelectText){
 fontSelectText.addEventListener("change", () => {
 
   if(fontSelectText.value){
-    // Lưu selection hiện tại trước khi focus
     const selection = window.getSelection();
     const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
-    
-    editor.focus();
-    
     // Khôi phục selection
     if(range){
       selection.removeAllRanges();
@@ -213,8 +188,6 @@ fontSelectText.addEventListener("change", () => {
     }
     
     document.execCommand("fontName", false, fontSelectText.value);
-    
-    // Đặt cursor ở cuối vùng được chọn để text mới gõ sẽ giữ font
     if(range){
       range.collapse(false); // false = collapse ở cuối range
       selection.removeAllRanges();
@@ -276,9 +249,6 @@ colorText.addEventListener("input", () => {
 }
 
 
-// =========================
-// TOOLBAR FORMAT
-// =========================
 function format(command){
 
   editor.focus();
@@ -301,9 +271,6 @@ function setColor(color){
 }
 
 
-// =========================
-// POPUP
-// =========================
 function showPopup(message,link=""){
 
   const msg = document.getElementById("popupMessage");
@@ -343,9 +310,6 @@ function copyLink(){
 }
 
 
-// =========================
-// THEME SWITCH
-// =========================
 if(themeSelect){
 
 document.body.classList.add("default");

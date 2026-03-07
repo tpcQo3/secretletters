@@ -1,17 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Outfit:wght@300;400;500&family=Great+Vibes&family=Pacifico&family=Caveat&family=Montserrat:wght@400;500;600&family=Playfair+Display&family=Merriweather&family=Lora&family=Bitter&family=Raleway&family=Poppins&family=Roboto&family=Open+Sans&family=Ubuntu&family=Crimson+Text&family=Cormorant+Garamond&family=EB+Garamond&family=Dancing+Script&family=Satisfy&family=Tangerine&family=Indie+Flower&family=Fredoka+One&family=Quicksand&family=Nunito&family=Work+Sans&family=Josefin+Sans&family=Abril+Fatface&family=Bebas+Neue&family=Righteous&family=Alfa+Slab+One&family=Permanent+Marker&family=Lato&family=Source+Serif+Pro&family=PT+Serif&family=Libre+Baskerville&family=Dosis&family=IBM+Plex+Serif&family=Comfortaa&family=Fira+Sans&family=Overpass&family=Mulish&display=swap');
 
-/* =========================
-   RESET
-========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* =========================
-   THEME VARIABLES (DEFAULT)
-========================= */
 body {
   --bg: #f4f4f4;
   --card: #ffffff;
@@ -31,9 +25,6 @@ body {
   transition: all 0.4s ease;
 }
 
-/* =========================
-   THEMES
-========================= */
 body.default {
   --bg: #f4f4f4;
   --card: #ffffff;
@@ -83,9 +74,6 @@ body.ocean {
   --accent: #00b4d8;
 }
 
-/* =========================
-   CARD
-========================= */
 .card {
   width: 100%;
   max-width: 650px;
@@ -102,9 +90,6 @@ body.ocean {
   font-weight: 500;
 }
 
-/* =========================
-   INPUT GROUP
-========================= */
 .input-group {
   margin-bottom: 18px;
   display: flex;
@@ -134,9 +119,6 @@ select:focus {
   border-color: var(--accent);
 }
 
-/* =========================
-   TOOLBAR
-========================= */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -163,9 +145,6 @@ select:focus {
   opacity: 0.85;
 }
 
-/* =========================
-   EDITOR
-========================= */
 .editor {
   min-height: 200px;
   padding: 15px;
@@ -182,9 +161,6 @@ select:focus {
   opacity: 0.4;
 }
 
-/* =========================
-   ROW
-========================= */
 .row {
   display: flex;
   gap: 15px;
@@ -194,9 +170,6 @@ select:focus {
   flex: 1;
 }
 
-/* =========================
-   PREVIEW
-========================= */
 .preview {
   margin-top: 25px;
   padding: 18px;
@@ -220,18 +193,12 @@ select:focus {
   font-family: inherit;
 }
 
-/* =========================
-   CHARACTER COUNT
-========================= */
 #charCount {
   font-size: 12px;
   opacity: 0.6;
   margin-top: 6px;
 }
 
-/* =========================
-   SEND BUTTON
-========================= */
 .send-btn {
   margin-top: 25px;
   width: 100%;
@@ -250,9 +217,6 @@ select:focus {
   opacity: 0.85;
 }
 
-/* =========================
-   POPUP
-========================= */
 .popup {
   position: fixed;
   inset: 0;
@@ -294,25 +258,15 @@ select:focus {
   color: #fff;
 }
 
-/* =========================
-   UTILITY
-========================= */
 .hidden {
   display: none;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 600px) {
   .row {
     flex-direction: column;
   }
 }
-
-/* =========================
-   ROMANTIC SPECIAL STYLE
-========================= */
 
 body.romantic {
   background: var(--bg);
@@ -378,10 +332,6 @@ body.romantic::after {
   50% { transform: translateY(-15px); opacity: 0.6; }
   100% { transform: translateY(0); opacity: 0.3; }
 }
-
-/* =========================
-   LOVING SPECIAL STYLE
-========================= */
 
 body.loving {
   background: var(--bg);
@@ -463,9 +413,6 @@ body.loving .editor::selection {
   color: white;
 }
 
-/* =========================
-   CUTE SPECIAL STYLE
-========================= */
 body.cute {
   background: var(--bg);
 }
@@ -503,9 +450,6 @@ body.cute::after {
   50% { opacity: 0.6; }
 }
 
-/* =========================
-   DRACULA SPECIAL STYLE
-========================= */
 body.dracula {
   background: var(--bg);
 }
@@ -533,9 +477,6 @@ body.dracula .editor {
   border: 1px solid rgba(233, 69, 96, 0.3);
 }
 
-/* =========================
-   SUNSET SPECIAL STYLE
-========================= */
 body.sunset {
   background: var(--bg);
 }
@@ -567,9 +508,6 @@ body.sunset::after {
   opacity: 0.4;
 }
 
-/* =========================
-   OCEAN SPECIAL STYLE
-========================= */
 body.ocean {
   background: var(--bg);
 }
@@ -593,9 +531,6 @@ body.ocean .send-btn:hover {
   box-shadow: 0 8px 20px rgba(0, 180, 216, 0.5);
 }
 
-/* =========================
-   SAKURA SPECIAL STYLE
-========================= */
 body.sakura {
   --bg: linear-gradient(135deg, #ffe5f0, #fff0f7);
   --card: rgba(255, 255, 255, 0.85);
@@ -639,9 +574,6 @@ body.sakura::after {
   100% { transform: translateY(20px); opacity: 0; }
 }
 
-/* =========================
-   GALAXY SPECIAL STYLE
-========================= */
 body.galaxy {
   --bg: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   --card: rgba(48, 43, 99, 0.4);
@@ -679,9 +611,6 @@ body.galaxy .editor::selection {
   background: rgba(124, 58, 237, 0.6);
 }
 
-/* =========================
-   MIDNIGHT SPECIAL STYLE
-========================= */
 body.midnight {
   --bg: #0a0e27;
   --card: #1a1f3a;
@@ -714,9 +643,6 @@ body.midnight .editor {
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-/* =========================
-   FOREST SPECIAL STYLE
-========================= */
 body.forest {
   --bg: linear-gradient(135deg, #1b4d2a, #2d6a4f);
   --card: rgba(255, 255, 255, 0.85);
@@ -753,9 +679,6 @@ body.forest::after {
   opacity: 0.4;
 }
 
-/* =========================
-   BUBBLE SPECIAL STYLE
-========================= */
 body.bubble {
   --bg: linear-gradient(135deg, #ffc0d9, #fff5e1, #e0f7ff);
   --card: rgba(255, 255, 255, 0.9);

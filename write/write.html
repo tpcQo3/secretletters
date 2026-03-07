@@ -18,20 +18,14 @@
 <h1>Viết một lá thư 💌</h1>
 
 <form id="letterForm">
-
-<!-- Người nhận -->
 <div class="input-group">
 <label for="to">Người nhận</label>
 <input type="text" id="to" required maxlength="100">
 </div>
-
-<!-- Chủ đề -->
 <div class="input-group">
 <label for="subject">Chủ đề</label>
 <input type="text" id="subject" maxlength="150">
 </div>
-
-<!-- Nội dung -->
 <div class="input-group">
 <label>Nội dung</label>
 
@@ -102,8 +96,6 @@
 <div id="editor" contenteditable="true" class="editor"></div>
 <span id="charCount">0 / 2000</span>
 </div>
-
-<!-- Password + Expiry -->
 <div class="row">
 <div class="input-group half">
 <label for="password">Mật khẩu (tuỳ chọn)</label>
@@ -120,21 +112,19 @@
 </select>
 </div>
 </div>
-
-<!-- Theme -->
 <div class="style-panel">
 <h3>Tuỳ chỉnh phong cách ✨</h3>
 
 <div class="input-group">
 <label for="theme">Theme</label>
 <select id="theme">
-<option value="default">Default</option>
-<option value="romantic">Romantic</option>
-<option value="loving">Loving</option>
-<option value="cute">Cute</option>
-<option value="dracula">Dracula</option>
-<option value="sunset">Sunset</option>
-<option value="ocean">Ocean</option>
+<option value="default">Default 📋</option>
+<option value="romantic">Romantic 💕</option>
+<option value="loving">Loving ❤️</option>
+<option value="cute">Cute 🎀</option>
+<option value="dracula">Dracula 🧛</option>
+<option value="sunset">Sunset 🌅</option>
+<option value="ocean">Ocean 🌊</option>
 <option value="sakura">Sakura 🌸</option>
 <option value="galaxy">Galaxy ✨</option>
 <option value="midnight">Midnight 🌙</option>
@@ -143,7 +133,6 @@
 </select>
 </div>
 </div>
-<!-- PREVIEW -->
 <div class="preview">
   <h3>Xem trước 👀</h3>
   <div id="previewText"></div>
