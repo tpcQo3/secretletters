@@ -62,8 +62,15 @@ const db = getFirestore(app);
 window.letterData = null;
 
 async function loadLetter() {
-  const pathParts = window.location.pathname.split('/');
-  const id = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+  // Lấy ID từ query string (?id=...)
+  const params = new URLSearchParams(window.location.search);
+  let id = params.get('id');
+  
+  // Fallback: lấy từ pathname nếu không có query string
+  if (!id) {
+    const pathParts = window.location.pathname.split('/');
+    id = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+  }
   
   if (!id) {
     showError("Không tìm thấy ID thư");
