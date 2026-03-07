@@ -106,7 +106,7 @@ form.addEventListener("submit", async (e) => {
   const subject = document.getElementById("subject")?.value.trim();
   const password = document.getElementById("password")?.value;
   const expiryDays = document.getElementById("expiry")?.value;
-  const customIdInput = document.getElementById("customId")?.value.trim();
+  const customUrlInput = document.getElementById("customUrl")?.value.trim();
   const theme = themeSelect?.value;
 
   const message = editor.innerText.trim();
@@ -116,7 +116,17 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  let id = customIdInput || Math.random().toString(36).substring(2,10);
+  let id;
+  
+  if(customUrlInput){
+    if(customUrlInput.length < 4){
+      showPopup("URL phải có ít nhất 4 ký tự 😊");
+      return;
+    }
+    id = customUrlInput;
+  } else {
+    id = Math.random().toString(36).substring(2,10);
+  }
 
   let expiry = null;
 
