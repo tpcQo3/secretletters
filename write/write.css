@@ -220,42 +220,116 @@ select:focus {
 .popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .popup-box {
-  background: #ffffff;
+  background: var(--card, #ffffff);
   padding: 30px;
-  border-radius: 16px;
-  width: 400px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
   text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border: 2px solid var(--accent, #ff4d6d);
+  animation: slideDown 0.4s ease;
+  backdrop-filter: blur(10px);
+}
+
+#popupMessage {
+  color: var(--text, #333);
+  font-size: 16px;
+  margin: 0 0 15px 0;
+  font-weight: 500;
 }
 
 .popup input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 15px 0;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  border: 2px solid var(--accent, #ff4d6d);
+  background: rgba(255,255,255,0.1);
+  color: var(--text, #333);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.popup input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,77,109,0.2);
 }
 
 .popup-actions {
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .popup button {
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  background: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.copy-btn {
+  background: var(--accent, #ff4d6d);
   color: #fff;
+}
+
+.copy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+  background: rgba(100,100,100,0.3);
+  color: var(--text, #333);
+  border: 1px solid var(--text, #333);
+}
+
+.close-btn:hover {
+  background: rgba(100,100,100,0.5);
+  transform: translateY(-2px);
+}
+
+.copy-success {
+  margin-top: 10px;
+  color: #4caf50;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .hidden {

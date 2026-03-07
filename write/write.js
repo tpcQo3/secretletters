@@ -276,9 +276,16 @@ function showPopup(message,link=""){
   const msg = document.getElementById("popupMessage");
   const linkInput = document.getElementById("popupLink");
   const popup = document.getElementById("popup");
+  const copyBtn = document.querySelector(".copy-btn");
 
   if(msg) msg.innerText = message;
-  if(linkInput) linkInput.value = link;
+  if(linkInput){
+    linkInput.value = link;
+    linkInput.style.display = link ? "block" : "none";
+  }
+  if(copyBtn){
+    copyBtn.style.display = link ? "block" : "none";
+  }
 
   popup?.classList.remove("hidden");
 

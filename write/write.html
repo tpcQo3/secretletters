@@ -140,6 +140,19 @@
 <button type="submit", class="send-btn">Tạo thư</button>
 
 </form>
+
+<div id="popup" class="popup hidden">
+  <div class="popup-box">
+    <p id="popupMessage"></p>
+    <input type="text" id="popupLink" readonly>
+    <div class="popup-actions">
+      <button type="button" class="copy-btn" onclick="copyLink()">Sao chép 📋</button>
+      <button type="button" class="close-btn" onclick="closePopup()">Đóng ✕</button>
+    </div>
+    <div id="copySuccess" class="copy-success hidden">✓ Đã sao chép!</div>
+  </div>
+</div>
+
 </div>
 
 <script type="module">
