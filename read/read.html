@@ -2,19 +2,156 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Đọc thư</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đọc thư | SecretLetter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Outfit:wght@300;400;500&family=Great+Vibes&family=Pacifico&family=Caveat&family=Montserrat:wght@400;500;600&family=Playfair+Display&family=Merriweather&family=Lora&family=Bitter&family=Raleway&family=Poppins&family=Roboto&family=Open+Sans&family=Ubuntu&family=Crimson+Text&family=Cormorant+Garamond&family=EB+Garamond&family=Dancing+Script&family=Satisfy&family=Tangerine&family=Indie+Flower&family=Fredoka+One&family=Quicksand&family=Nunito&family=Work+Sans&family=Josefin+Sans&family=Abril+Fatface&family=Bebas+Neue&family=Righteous&family=Alfa+Slab+One&family=Permanent+Marker&family=Lato&family=Source+Serif+Pro&family=PT+Serif&family=Libre+Baskerville&family=Dosis&family=IBM+Plex+Serif&family=Comfortaa&family=Fira+Sans&family=Overpass&family=Mulish&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="read.css">
 </head>
-<body>
+<body class="default">
 
-  <div class="container">
-    <div id="letter"></div>
+<div class="background-blur"></div>
+
+<div class="card">
+  <h1>Thư của bạn 💌</h1>
+  
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Đang tải thư...</p>
   </div>
 
-  <!-- Firebase CDN -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <div id="error" class="error hidden">
+    <p id="errorMessage"></p>
+  </div>
 
-  <script src="read.js"></script>
+  <div id="passwordForm" class="password-form hidden">
+    <p>Thư này được bảo vệ bằng mật khẩu 🔐</p>
+    <input type="password" id="passwordInput" placeholder="Nhập mật khẩu">
+    <button onclick="checkPassword()">Kiểm tra</button>
+  </div>
+
+  <div id="letterContainer" class="letter-container hidden">
+    <div class="letter-header">
+      <p><strong>Gửi đến:</strong> <span id="letterTo"></span></p>
+      <p><strong>Chủ đề:</strong> <span id="letterSubject"></span></p>
+    </div>
+    
+    <div id="letterContent" class="letter-content"></div>
+    
+    <div class="letter-footer">
+      <p id="letterDate"></p>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBznlEjaRHE7my7mFZTKgldokLGmkL609A",
+  authDomain: "screctletters.firebaseapp.com",
+  projectId: "screctletters",
+  storageBucket: "screctletters.firebasestorage.app",
+  messagingSenderId: "916940604225",
+  appId: "1:916940604225:web:faf88856504271362ed7c0"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.letterData = null;
+
+async function loadLetter() {
+  const pathParts = window.location.pathname.split('/');
+  const id = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+  
+  if (!id) {
+    showError("Không tìm thấy ID thư");
+    return;
+  }
+
+  try {
+    const docRef = doc(db, "letters", id);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      showError("Không tìm thấy thư 😢");
+      return;
+    }
+
+    const data = docSnap.data();
+
+    if (data.expiry && new Date(data.expiry) < new Date()) {
+      showError("Thư này đã hết hạn 📅");
+      return;
+    }
+
+    window.letterData = data;
+
+    if (data.password) {
+      showPasswordForm();
+    } else {
+      displayLetter(data);
+    }
+
+  } catch (error) {
+    console.error(error);
+    showError("Có lỗi khi tải thư");
+  }
+}
+
+window.checkPassword = function() {
+  const input = document.getElementById("passwordInput").value;
+  const hashed = btoa(input);
+
+  if (hashed === window.letterData.password) {
+    displayLetter(window.letterData);
+    document.getElementById("passwordForm").classList.add("hidden");
+  } else {
+    alert("Mật khẩu sai 🙈");
+    document.getElementById("passwordInput").value = "";
+  }
+};
+
+function displayLetter(data) {
+  const theme = data.theme || "default";
+  document.body.className = theme;
+
+  document.getElementById("letterTo").textContent = data.to || "";
+  document.getElementById("letterSubject").textContent = data.subject || "";
+  document.getElementById("letterContent").innerHTML = data.message || "";
+  
+  if (data.fontSize) {
+    document.getElementById("letterContent").style.fontSize = data.fontSize + "px";
+  }
+  if (data.color) {
+    document.getElementById("letterContent").style.color = data.color;
+  }
+
+  if (data.createdAt) {
+    const date = new Date(data.createdAt).toLocaleString("vi-VN");
+    document.getElementById("letterDate").textContent = `Được tạo: ${date}`;
+  }
+
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("letterContainer").classList.remove("hidden");
+}
+
+function showPasswordForm() {
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("passwordForm").classList.remove("hidden");
+  document.getElementById("passwordInput").focus();
+}
+
+function showError(message) {
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("error").classList.remove("hidden");
+  document.getElementById("errorMessage").textContent = message;
+}
+
+loadLetter();
+
+</script>
+
 </body>
 </html>
