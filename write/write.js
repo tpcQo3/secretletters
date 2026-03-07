@@ -214,6 +214,13 @@ fontSelectText.addEventListener("change", () => {
     
     document.execCommand("fontName", false, fontSelectText.value);
     
+    // Đặt cursor ở cuối vùng được chọn để text mới gõ sẽ giữ font
+    if(range){
+      range.collapse(false); // false = collapse ở cuối range
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+    
     // Trigger input event để update preview
     editor.dispatchEvent(new Event("input"));
     
