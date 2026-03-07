@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&family=Caveat&family=Montserrat:wght@400;500;600&family=Playfair+Display&family=Merriweather&family=Lora&family=Bitter&family=Raleway&family=Poppins&family=Inter&family=Roboto&family=Open+Sans&family=Ubuntu&display=swap');
+
 /* =========================
    RESET
 ========================= */
@@ -210,6 +212,12 @@ select:focus {
 #previewText {
   min-height: 60px;
   opacity: 0.9;
+  word-wrap: break-word;
+}
+
+/* Apply font từ <font> tag */
+#previewText font {
+  font-family: inherit;
 }
 
 /* =========================
