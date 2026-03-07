@@ -139,8 +139,8 @@ form.addEventListener("submit", async (e) => {
       password: hashedPassword,
       expiry,
       theme,
-      fontSize: fontSizeInput?.value,
-      color: colorPicker?.value,
+      fontSize: fontSizeInput?.value || "16",
+      color: colorPicker?.value || "#000000",
       createdAt: Date.now()
     });
 
