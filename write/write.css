@@ -463,6 +463,349 @@ body.loving .editor::selection {
   color: white;
 }
 
+/* =========================
+   CUTE SPECIAL STYLE
+========================= */
+body.cute {
+  background: var(--bg);
+}
+
+body.cute .card {
+  background: var(--card);
+  box-shadow: 0 10px 40px rgba(255, 182, 203, 0.3);
+  border: 2px solid rgba(255, 105, 180, 0.3);
+}
+
+body.cute .toolbar button,
+body.cute .send-btn {
+  background: linear-gradient(135deg, #ff69b4, #ff69d2);
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+
+body.cute .toolbar button:hover,
+body.cute .send-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+}
+
+body.cute::after {
+  content: "☆ ✦ ✧ ★";
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 24px;
+  opacity: 0.3;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
+}
+
+/* =========================
+   DRACULA SPECIAL STYLE
+========================= */
+body.dracula {
+  background: var(--bg);
+}
+
+body.dracula .card {
+  background: var(--card);
+  box-shadow: 0 20px 60px rgba(233, 69, 96, 0.25);
+  border: 1px solid rgba(233, 69, 96, 0.4);
+}
+
+body.dracula .toolbar button,
+body.dracula .send-btn {
+  background: linear-gradient(135deg, #e94560, #d63447);
+  box-shadow: 0 5px 15px rgba(233, 69, 96, 0.35);
+}
+
+body.dracula .toolbar button:hover,
+body.dracula .send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 69, 96, 0.5);
+}
+
+body.dracula .editor {
+  background: rgba(233, 69, 96, 0.05);
+  border: 1px solid rgba(233, 69, 96, 0.3);
+}
+
+/* =========================
+   SUNSET SPECIAL STYLE
+========================= */
+body.sunset {
+  background: var(--bg);
+}
+
+body.sunset .card {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 60px rgba(255, 81, 47, 0.3);
+  border: 1px solid rgba(255, 126, 95, 0.3);
+}
+
+body.sunset .toolbar button,
+body.sunset .send-btn {
+  background: linear-gradient(135deg, #ff7e5f, #ff512f);
+  box-shadow: 0 5px 15px rgba(255, 81, 47, 0.35);
+}
+
+body.sunset .toolbar button:hover,
+body.sunset .send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 81, 47, 0.5);
+}
+
+body.sunset::after {
+  content: "🌅";
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 40px;
+  opacity: 0.4;
+}
+
+/* =========================
+   OCEAN SPECIAL STYLE
+========================= */
+body.ocean {
+  background: var(--bg);
+}
+
+body.ocean .card {
+  background: var(--card);
+  box-shadow: 0 20px 60px rgba(0, 180, 216, 0.2);
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+body.ocean .toolbar button,
+body.ocean .send-btn {
+  background: linear-gradient(135deg, #00b4d8, #0096c7);
+  box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
+}
+
+body.ocean .toolbar button:hover,
+body.ocean .send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 180, 216, 0.5);
+}
+
+/* =========================
+   SAKURA SPECIAL STYLE
+========================= */
+body.sakura {
+  --bg: linear-gradient(135deg, #ffe5f0, #fff0f7);
+  --card: rgba(255, 255, 255, 0.85);
+  --text: #9b4569;
+  --accent: #d946a6;
+
+  background: var(--bg);
+}
+
+body.sakura .card {
+  background: var(--card);
+  box-shadow: 0 15px 50px rgba(217, 70, 166, 0.2);
+  border: 1px solid rgba(217, 70, 166, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+body.sakura .toolbar button,
+body.sakura .send-btn {
+  background: linear-gradient(135deg, #d946a6, #ec4899);
+  box-shadow: 0 5px 15px rgba(217, 70, 166, 0.3);
+}
+
+body.sakura .toolbar button:hover,
+body.sakura .send-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(217, 70, 166, 0.5);
+}
+
+body.sakura::after {
+  content: "🌸 🌸 🌸";
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+  opacity: 0.4;
+  animation: floatFall 6s ease-in infinite;
+}
+
+@keyframes floatFall {
+  0% { transform: translateY(0px); opacity: 0.4; }
+  100% { transform: translateY(20px); opacity: 0; }
+}
+
+/* =========================
+   GALAXY SPECIAL STYLE
+========================= */
+body.galaxy {
+  --bg: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  --card: rgba(48, 43, 99, 0.4);
+  --text: #e0b0ff;
+  --accent: #7c3aed;
+
+  background: var(--bg);
+}
+
+body.galaxy .card {
+  background: var(--card);
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.3);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  backdrop-filter: blur(20px);
+}
+
+body.galaxy .toolbar button,
+body.galaxy .send-btn {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+}
+
+body.galaxy .toolbar button:hover,
+body.galaxy .send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.6);
+}
+
+body.galaxy .editor {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+body.galaxy .editor::selection {
+  background: rgba(124, 58, 237, 0.6);
+}
+
+/* =========================
+   MIDNIGHT SPECIAL STYLE
+========================= */
+body.midnight {
+  --bg: #0a0e27;
+  --card: #1a1f3a;
+  --text: #cbd5e1;
+  --accent: #3b82f6;
+
+  background: var(--bg);
+}
+
+body.midnight .card {
+  background: var(--card);
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+body.midnight .toolbar button,
+body.midnight .send-btn {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+body.midnight .toolbar button:hover,
+body.midnight .send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
+}
+
+body.midnight .editor {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* =========================
+   FOREST SPECIAL STYLE
+========================= */
+body.forest {
+  --bg: linear-gradient(135deg, #1b4d2a, #2d6a4f);
+  --card: rgba(255, 255, 255, 0.85);
+  --text: #1b4d2a;
+  --accent: #40916c;
+
+  background: var(--bg);
+}
+
+body.forest .card {
+  background: var(--card);
+  box-shadow: 0 20px 60px rgba(64, 145, 108, 0.2);
+  border: 2px solid rgba(64, 145, 108, 0.4);
+}
+
+body.forest .toolbar button,
+body.forest .send-btn {
+  background: linear-gradient(135deg, #40916c, #2d6a4f);
+  box-shadow: 0 5px 15px rgba(64, 145, 108, 0.3);
+}
+
+body.forest .toolbar button:hover,
+body.forest .send-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(64, 145, 108, 0.5);
+}
+
+body.forest::after {
+  content: "🌿 🍃";
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 24px;
+  opacity: 0.4;
+}
+
+/* =========================
+   BUBBLE SPECIAL STYLE
+========================= */
+body.bubble {
+  --bg: linear-gradient(135deg, #ffc0d9, #fff5e1, #e0f7ff);
+  --card: rgba(255, 255, 255, 0.9);
+  --text: #5a6e6f;
+  --accent: #6dd5ed;
+
+  background: var(--bg);
+}
+
+body.bubble .card {
+  background: var(--card);
+  box-shadow: 0 15px 50px rgba(200, 220, 240, 0.3);
+  border: 2px solid rgba(109, 213, 237, 0.3);
+  border-radius: 30px;
+}
+
+body.bubble .toolbar button,
+body.bubble .send-btn {
+  background: linear-gradient(135deg, #6dd5ed, #ffc0d9);
+  box-shadow: 0 5px 15px rgba(109, 213, 237, 0.3);
+  border-radius: 25px;
+}
+
+body.bubble .toolbar button:hover,
+body.bubble .send-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(109, 213, 237, 0.5);
+}
+
+body.bubble .editor {
+  border-radius: 20px;
+}
+
+body.bubble::after {
+  content: "◯ ◯ ◯";
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  opacity: 0.3;
+  letter-spacing: 15px;
+  animation: bubbleBounce 2s infinite ease-in-out;
+}
+
+@keyframes bubbleBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
 .spoiler{
   cursor:pointer;
   filter: blur(6px);
