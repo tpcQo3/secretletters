@@ -595,7 +595,17 @@ body.dracula .toolbar {
 }
 
 body.dracula .toolbar button,
-body.dracula .linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #feca57 100%);
+body.dracula .send-btn {
+  background: linear-gradient(135deg, #e94560, #ff3a56);
+  box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+body.dracula .toolbar button:hover,
+body.dracula .send-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 10px 25px rgba(233, 69, 96, 0.6);
 }
 
 body.sunset .card {
@@ -708,7 +718,6 @@ body.ocean::before {
 @keyframes wave {
   0%, 100% { transform: translateY(0); opacity: 0.15; }
   50% { transform: translateY(20px); opacity: 0.25; }
-  transition: 0.2s ease;
 }
 
 body.sunset input:focus,
@@ -734,7 +743,16 @@ body.sunset::after {
 
 @keyframes rise {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(5deg); }put:focus,
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+body.sunset input:focus,
+body.sunset select:focus {
+  border-color: #ff7e5f;
+  box-shadow: 0 0 10px rgba(255, 126, 95, 0.4);
+}
+
+body.dracula input:focus,
 body.dracula select:focus {
   border-color: #e94560;
   box-shadow: 0 0 10px rgba(233, 69, 96, 0.4);
@@ -956,8 +974,10 @@ body.galaxy .send-btn:hover {
   box-shadow: 0 12px 30px rgba(124, 58, 237, 0.7);
 }
 
-body.galaxy .editor {2), inset 0 1px 1px rgba(255,255,255,0.05);
-  border: 2px solid rgba(59, 130, 246, 0.4);
+body.galaxy .editor {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(124, 58, 237, 0.4);
+  color: #e0b0ff;
   transition: 0.3s ease;
 }
 
@@ -978,7 +998,42 @@ body.midnight .toolbar {
 }
 
 body.midnight .toolbar button,
-body.midnight .send-btn { 0%, #2d6a4f 50%, #1b4d2a 100%);
+body.midnight .send-btn {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+body.midnight .toolbar button:hover,
+body.midnight .send-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.6);
+}
+
+body.midnight .editor {
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  color: #cbd5e1;
+}
+
+body.midnight input,
+body.midnight select {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  color: #cbd5e1;
+  transition: 0.2s ease;
+}
+
+body.midnight input:focus,
+body.midnight select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+body.forest {
+  --bg: linear-gradient(135deg, #1b4d2a 0%, #2d6a4f 50%, #1b4d2a 100%);
   --card: rgba(255, 255, 255, 0.9);
   --text: #1b4d2a;
   --accent: #40916c;
@@ -1122,7 +1177,9 @@ body.bubble::after {
 
 @keyframes bubbleBounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-20px) scale(1.2
+  50% { transform: translateX(-50%) translateY(-20px) scale(1.2); }
+}
+
 body.forest::after {
   content: "🌿 🍃";
   position: fixed;
@@ -1142,6 +1199,7 @@ body.forest::after {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(2deg); }
   75% { transform: rotate(-2deg); }
+}
 
 body.midnight .preview {
   background: rgba(0, 0, 0, 0.5);
