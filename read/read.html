@@ -123,8 +123,8 @@ window.checkPassword = function() {
   const hashed = btoa(input);
 
   if (hashed === window.letterData.password) {
-    displayLetter(window.letterData);
-    document.getElementById("passwordForm").classList.add("hidden");
+    // Bỏ hiệu ứng mờ để hiển thị đầy đủ
+    document.getElementById("previewContent").classList.remove("blurred");
   } else {
     alert("Mật khẩu sai 🙈");
     document.getElementById("passwordInput").value = "";
@@ -156,6 +156,27 @@ function displayLetter(data) {
 }
 
 function showPasswordForm() {
+  const data = window.letterData;
+  const theme = data.theme || "default";
+  document.body.className = theme;
+
+  // Hiển thị preview (mờ)
+  document.getElementById("previewTo").textContent = data.to || "";
+  document.getElementById("previewSubject").textContent = data.subject || "";
+  document.getElementById("previewMessage").innerHTML = data.message || "";
+  
+  if (data.fontSize) {
+    document.getElementById("previewMessage").style.fontSize = data.fontSize + "px";
+  }
+  if (data.color) {
+    document.getElementById("previewMessage").style.color = data.color;
+  }
+
+  if (data.createdAt) {
+    const date = new Date(data.createdAt).toLocaleString("vi-VN");
+    document.getElementById("previewDate").textContent = `Được tạo: ${date}`;
+  }
+
   document.getElementById("loading").classList.add("hidden");
   document.getElementById("passwordForm").classList.remove("hidden");
   document.getElementById("passwordInput").focus();
