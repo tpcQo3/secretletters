@@ -27,6 +27,17 @@
     <p>Thư này được bảo vệ bằng mật khẩu 🔐</p>
     <input type="password" id="passwordInput" placeholder="Nhập mật khẩu">
     <button onclick="checkPassword()">Kiểm tra</button>
+    
+    <div id="previewContent" class="preview-content blurred">
+      <div class="letter-header">
+        <p><strong>Gửi đến:</strong> <span id="previewTo"></span></p>
+        <p><strong>Chủ đề:</strong> <span id="previewSubject"></span></p>
+      </div>
+      <div id="previewMessage" class="letter-content"></div>
+      <div class="letter-footer">
+        <p id="previewDate"></p>
+      </div>
+    </div>
   </div>
 
   <div id="letterContainer" class="letter-container hidden">
