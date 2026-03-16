@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/l/:id",
-      "destination": "/read/read.html?id=:id"
+      "destination": "/read.html?id=:id"
     }
   ]
 }
