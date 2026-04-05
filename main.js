@@ -5,15 +5,14 @@ let step = 0;
 function next() {
   let steps = slides[current].querySelectorAll(".step");
 
-  // hiện từng dòng
   if (step < steps.length) {
     steps[step].classList.add("show");
     step++;
   } else {
 
     // gọi hiệu ứng slide hiện tại
-    let outFunc = window[`slide${current + 1}Out`];
-    if (outFunc) outFunc();
+    let fn = window[`slide${current + 1}Out`];
+    if (fn) fn();
 
     setTimeout(() => {
       slides[current].classList.remove("active");
@@ -29,6 +28,3 @@ function next() {
 }
 
 document.addEventListener("click", next);
-document.addEventListener("keydown", e => {
-  if (e.code === "Space") next();
-});
