@@ -1,0 +1,140 @@
+/* ===== LOAD FONT LOCAL ===== */
+
+/* Playfair (title) */
+@font-face {
+  font-family: "Playfair";
+  src: url("fonts/PlayfairDisplay-Regular.ttf");
+}
+
+/* Lora thường */
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/Lora-VariableFont.ttf");
+}
+
+/* Lora italic */
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/Lora-Italic-VariableFont.ttf");
+  font-style: italic;
+}
+
+.title1 {
+  font-family: "Playfair", serif;
+  font-size: 50px;
+  font-weight: 600;
+  color: #3e3027;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  padding-left: 240px;
+  margin-top: 20vh;
+}
+
+.step1 {
+    margin: 0;
+    margin-top: 20vh;
+    padding-left: 20vh;
+    font-size: 24px;
+    font-family: "Playfair", serif;
+}
+/* ===== GLOBAL ===== */
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #fdf6e3;
+  font-family: "Lora", serif;
+}
+
+
+/* ===== SLIDE ===== */
+
+.slide {
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+
+/* ===== BACKGROUND ===== */
+
+.s1 { background: #fdf6e3; }
+.s2 { background: #f4ecda; }
+.s3 { background: #eaf2f8; }
+.s4 { background: #f5e6f0; }
+.s5 { background: #e8f5e9; }
+
+
+/* ===== TEXT ===== */
+
+.text {
+  max-width: 700px;
+  text-align: left;
+}
+
+/* Author (optional) */
+.author {
+  font-family: "LoraItalic";
+  font-size: 30px;
+  color: #6e5a4d;
+  margin-bottom: 20px;
+  padding-left: 290px;
+  margin-top: 15vh;
+  font-style: italic;
+}
+
+/* Content */
+.step {
+  font-family: "Lora", serif;
+  font-size: 22px;
+  color: #6e5a4d;
+  line-height: 1.6;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.step.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide1.move-left {
+    transform: translateX(-100%);
+    transition: transform 3.8s ease;
+}
+
+
+/* ===== IMAGE ===== */
+
+.floating-image {
+  position: fixed;
+  top: 50%;
+  left: 75%;
+
+  transform: translate(-50%, -50%) translateX(0);
+
+  width: 350px;
+  height: auto;
+
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+
+  transition: transform 3s ease;
+}
+
+/* Slide 1 → 2 animation */
+.floating-image.move {
+  transform: translateX(-120vh) translateY(-50%) translateX(0);
+}

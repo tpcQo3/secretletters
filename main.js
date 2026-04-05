@@ -1,37 +1,30 @@
 let slides = document.querySelectorAll(".slide");
 let current = 0;
 let step = 0;
-let img = document.getElementById("img");
 
 function next() {
   let steps = slides[current].querySelectorAll(".step");
 
+  // hiện từng dòng
   if (step < steps.length) {
     steps[step].classList.add("show");
     step++;
   } else {
 
-    // slide 1 → 2: ảnh trượt
-    if (current === 0) {
-      img.classList.add("move");
+    // gọi hiệu ứng slide hiện tại
+    let outFunc = window[`slide${current + 1}Out`];
+    if (outFunc) outFunc();
 
-      setTimeout(() => {
-        slides[current].classList.remove("active");
-        current++;
+    setTimeout(() => {
+      slides[current].classList.remove("active");
+      current++;
+
+      if (current < slides.length) {
         slides[current].classList.add("active");
         step = 0;
-      }, 1500);
+      }
 
-      return;
-    }
-
-    slides[current].classList.remove("active");
-    current++;
-
-    if (current < slides.length) {
-      slides[current].classList.add("active");
-      step = 0;
-    }
+    }, 1500);
   }
 }
 

@@ -1,0 +1,141 @@
+/* ===== LOAD FONT LOCAL ===== */
+
+/* Playfair (title) */
+@font-face {
+  font-family: "Playfair";
+  src: url("fonts/PlayfairDisplay-Regular.ttf");
+}
+
+/* Lora thường */
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/Lora-VariableFont.ttf");
+}
+
+/* Lora italic */
+@font-face {
+  font-family: "LoraItalic";
+  src: url("fonts/Lora-Italic-VariableFont.ttf");
+}
+
+.title1 {
+  margin-left: 0;
+  padding-left: 0px
+}
+
+/* ===== GLOBAL ===== */
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #fdf6e3;
+  font-family: "Lora", serif;
+}
+
+
+/* ===== SLIDE ===== */
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+
+/* ===== BACKGROUND ===== */
+
+.s1 { background: #fdf6e3; }
+.s2 { background: #f4ecda; }
+.s3 { background: #eaf2f8; }
+.s4 { background: #f5e6f0; }
+.s5 { background: #e8f5e9; }
+
+
+/* ===== LAYOUT ===== */
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+}
+
+
+/* ===== TEXT ===== */
+
+.text {
+  max-width: 500px;
+  text-align: left;
+}
+
+
+/* Title */
+.title {
+  font-family: "Playfair", serif;
+  font-size: 60px;
+  font-weight: 600;
+  color: #3e3027;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+
+/* Author (optional) */
+.author {
+  font-family: "LoraItalic", serif;
+  font-size: 22px;
+  color: #6e5a4d;
+  margin-bottom: 15px;
+}
+
+
+/* Content */
+.step {
+  font-family: "Lora", serif;
+  font-size: 22px;
+  color: #6e5a4d;
+  line-height: 1.6;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.step.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ===== IMAGE ===== */
+
+.floating-image {
+  position: fixed;
+  top: 50%;
+  left: 75%;
+
+  transform: translate(-50%, -50%) translateX(0);
+
+  width: 230px;
+
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+
+  transition: transform 1.5s ease;
+}
+
+/* Slide 1 → 2 animation */
+.floating-image.move {
+  transform: translate(-50%, -50%) translateX(-500px);
+}

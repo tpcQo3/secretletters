@@ -4,7 +4,7 @@ let step = 0;
 let img = document.getElementById("img");
 
 function next() {
-  let steps = slides[current].querySelectorAll(".step");
+  let steps = slides[current].getElementsByClassName('container');
 
   if (step < steps.length) {
     steps[step].classList.add("show");
@@ -38,4 +38,10 @@ function next() {
 document.addEventListener("click", next);
 document.addEventListener("keydown", e => {
   if (e.code === "Space") next();
+});
+
+let slide1 = document.getElementsByClassName("slide1")[0];
+
+document.addEventListener("click", () => {
+  slide1.classList.add("move-left");
 });
